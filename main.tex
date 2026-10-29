@@ -1,0 +1,127 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{tikz}
+
+\title{Research with AI Agents}
+\subtitle{What Works, What It Costs, and What an Institute Needs}
+\author{Lukas Theissinger}
+\date{\today}
+
+\AtBeginSection[]{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% 1. ~3 min
+\section{Staying Up to Date with AI}
+
+\begin{frame}{How to Stay Up to Date}
+  \begin{enumerate}
+    \setlength{\itemsep}{1.2em}
+    \item \textbf{Make an X (Twitter) account.}\\
+      Many people from the frontier labs post there first, often daily.
+    \item \textbf{Read ``Today's News'' on the home page.}\\
+      It sums up the biggest updates of the day.
+    \item \textbf{Follow the right people.}\\
+      Don't be fooled by clickbait.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Read Today's News}
+  \centering
+  \begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (shot)
+      {\includegraphics[height=0.78\textheight]{assets/x-news-and-reset.png}};
+    \begin{scope}[x={(shot.south east)}, y={(shot.north west)}]
+      % boxes as fractions of the screenshot size
+      \draw[red, line width=2pt, rounded corners=3pt] % Tibo's reset post
+        (0.232, 0.676) rectangle (0.686, 0.768);
+      \draw[red, line width=2pt, rounded corners=3pt] % Today's News
+        (0.718, 0.020) rectangle (0.995, 0.496);
+      % click 2: zoom on Today's News, click 3: zoom on Tibo's reset
+      \fill<2->[white, opacity=0.7] (0,0) rectangle (1,1);
+      \node<2>[draw=red, line width=2pt, inner sep=0] at (0.5, 0.5)
+        {\includegraphics[height=0.74\textheight]{assets/zoom-todays-news.png}};
+      \node<3>[draw=red, line width=2pt, inner sep=0] at (0.5, 0.5)
+        {\includegraphics[width=0.9\textwidth]{assets/zoom-tibo-reset.png}};
+    \end{scope}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Who to Follow and Why}
+  \small
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{@{}l l p{0.5\textwidth}@{}}
+    \textbf{Who} & \textbf{Handle} & \textbf{Why} \\ \hline
+    Andrej Karpathy   & @karpathy     & Clear explanations of LLMs and how to work with them \\
+    Thibault Sottiaux (tibo) & @thsottiaux & Leads OpenAI Codex; news on Codex releases and usage limits \\
+    Boris Cherny      & @bcherny      & Created Claude Code; how Anthropic uses its own agents \\
+    Tim Dettmers      & @Tim\_Dettmers & Agents in academic research; open models on small budgets \\
+    Victor Taelin     & @VictorTaelin & Tests frontier models on hard coding problems \\
+    Felix Rieseberg   & @felixrieseberg & Builds Claude's desktop apps at Anthropic; early product news \\
+  \end{tabular}
+
+  \vspace{1em}
+  {\footnotesize\itshape A few of the 251 accounts I follow, all of this kind.}
+\end{frame}
+
+\begin{frame}{A Recent Headline You Might Have Missed}
+  \centering
+  \begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (shot)
+      {\includegraphics[height=0.82\textheight]{assets/felix-post-cropped.png}};
+    \begin{scope}[x={(shot.south east)}, y={(shot.north west)}]
+      % click 2: zoom on the first paragraph
+      \fill<2>[white, opacity=0.7] (0,0) rectangle (1,1);
+      \node<2>[draw=red, line width=2pt, inner sep=0] at (0.5, 0.6)
+        {\includegraphics[width=0.95\textwidth]{assets/zoom-felix-headline.png}};
+    \end{scope}
+  \end{tikzpicture}
+\end{frame}
+
+% 2. ~6 min
+\section{OpenAI and ``Use Agents''}
+
+\begin{frame}{Research Acceleration at OpenAI}
+\end{frame}
+
+\begin{frame}{Use Agents or Be Left Behind}
+\end{frame}
+
+\begin{frame}{Avoiding Brain Rot}
+\end{frame}
+
+% 3. ~6 min
+\section{Owning Intelligence and Infrastructure at Lamarr}
+
+\begin{frame}{Small Labs Can Compete}
+\end{frame}
+
+\begin{frame}{What It Costs}
+\end{frame}
+
+\begin{frame}{What an Institute Needs}
+\end{frame}
+
+% 4. ~3 min
+\section{What to Watch in the Near Future}
+
+\begin{frame}{Near-Term Developments}
+\end{frame}
+
+\begin{frame}{Takeaways}
+\end{frame}
+
+\end{document}
