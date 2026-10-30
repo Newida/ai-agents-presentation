@@ -177,20 +177,24 @@
   \vspace{6pt}
   \renewcommand{\arraystretch}{1.35}
   \footnotesize
-  \begin{tabular}{@{}p{0.45\textwidth}p{0.49\textwidth}@{}}
-    \textbf{Dettmers says} & \textbf{What the OpenAI chart suggests} \\ \hline
-    ``More than 90\% of code and text should be written by agents.''
-      & Agents took over the \emph{doing}: code, runs, technical help
-        are $\sim$75\% of the extra tokens. \\
-    His posts are $>95\%$ AI, but he still dictates (1\,h) and reviews (2\,h).
-      & Did agents take over the \emph{thinking}? The chart can't say:
-        a plan or a decision is short, so tokens are the wrong measure. \\
-    Automate only if how often $\times$ time saved $>$ time to build.
-      & Frequent, repetitive work grew most; rare decisions grew least. \\
-    Agent use is a \emph{skill}: practice, expect failures
-      (his email agent: 100+\,h, net negative).
-      & All 18 activities went up: agents are used everywhere,
-        but how much and how exactly is still open. \\
+  % Clicks 1-4: what the chart suggests (left), one row per click.
+  % Clicks 5-8: what Dettmers says (right), one row per click.
+  % (\leavevmode keeps the \uncover cells top-aligned with the plain ones)
+  \begin{tabular}{@{}p{0.49\textwidth}p{0.45\textwidth}@{}}
+    \textbf{What the OpenAI chart suggests}
+      & \leavevmode\uncover<5->{\textbf{Dettmers says}} \\ \hline
+    Agents took over the \emph{doing}: code, runs, technical help
+        are $\sim$75\% of the extra tokens.
+      & \leavevmode\uncover<5->{``More than 90\% of code and text should be written by agents.''} \\
+    \leavevmode\uncover<2->{Did agents take over the \emph{thinking}? The chart can't say:
+        a plan or a decision is short, so tokens are the wrong measure.}
+      & \leavevmode\uncover<6->{His posts are $>95\%$ AI, but he still dictates (1\,h) and reviews (2\,h).} \\
+    \leavevmode\uncover<3->{Frequent, repetitive work grew most; rare decisions grew least.}
+      & \leavevmode\uncover<7->{Automate only if how often $\times$ time saved $>$ time to build.} \\
+    \leavevmode\uncover<4->{All 18 activities went up: agents are used everywhere,
+        but how much and how exactly is still open.}
+      & \leavevmode\uncover<8->{Agent use is a \emph{skill}: practice, expect failures
+        (his email agent: 100+\,h, net negative).} \\
   \end{tabular}
   \vfill
   {\tiny Sources: timdettmers.com/2026/01/13/use-agents-or-be-left-behind;
