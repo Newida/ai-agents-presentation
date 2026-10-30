@@ -152,15 +152,25 @@
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
 
-% Speaker notes (Tim Dettmers, "Use Agents or Be Left Behind", 2026-01-13):
-%   - Claim: >90% of code and text should be written by agents; his blog posts
-%     are >95% AI-generated, the rest is his editing.
-%   - Blog post: days -> ~3 h (1 h dictating, 10 min agent, ~2 h review/editing).
-%   - Rule from factory automation: automate only if (frequency x time saved)
-%     beats the time to build it; otherwise do the task by hand.
-%   - Failure: >100 h on an email agent, net negative -- reviewing drafts cost
-%     as much as writing them.
-%   - Agent use is a skill: deliberate practice, failed attempts still teach.
+% Speaker notes (Tim Dettmers, "Use Agents or Be Left Behind? A Personal Guide
+% to Automating Your Own Work", 2026-01-13; quotes checked against the post):
+%   - Claim, after 8 months of Claude Code: "more than 90% of code and text
+%     should be written by agents. You need to do so, or you will be left behind."
+%   - His blog posts are >95% AI-generated. A post now takes ~3 h: 1 h speaking
+%     into a microphone, 10 min agent workflow, ~2 h reviewing and editing.
+%   - Degree of automation: "You always have a degree of automation." Raise it
+%     only where it pays: how often you do the task x time saved vs. the time
+%     to automate it (process optimization: stopwatch on the factory floor).
+%     "There are many tasks that should not be automated because it is not
+%     effective."
+%   - Failure: two months on an email agent; "I could not get any degree of
+%     automation improvement by using agents for emails."
+%   - Decisions stay human: "there will always be work where your personal
+%     preferences, decisions, and taste will be needed -- even if 90% of the
+%     work happens through AI."
+%   - Conclusion: "agent use is a skill, and like any skill, it requires
+%     deliberate practice, understanding of when it applies, and acceptance
+%     that you will fail often before you succeed."
 \begin{frame}[plain]
   % the headline, alone
     \vspace*{\fill}
@@ -183,18 +193,17 @@
   \begin{tabular}{@{}p{0.49\textwidth}p{0.45\textwidth}@{}}
     \textbf{What the OpenAI chart suggests}
       & \leavevmode\uncover<5->{\textbf{Dettmers says}} \\ \hline
-    Agents took over the \emph{doing}: code, runs, technical help
-        are $\sim$75\% of the extra tokens.
-      & \leavevmode\uncover<5->{``More than 90\% of code and text should be written by agents.''} \\
-    \leavevmode\uncover<2->{Did agents take over the \emph{thinking}? The chart can't say:
-        a plan or a decision is short, so tokens are the wrong measure.}
-      & \leavevmode\uncover<6->{His posts are $>95\%$ AI, but he still dictates (1\,h) and reviews (2\,h).} \\
+    All 18 activities went up: agents are used everywhere,
+        but how much and how exactly is still open.
+      & \leavevmode\uncover<5->{Use agents or be left behind.} \\
+    \leavevmode\uncover<2->{Agents took over the \emph{doing}: code, runs, technical help.}
+      & \leavevmode\uncover<6->{``More than 90\% of code and text should be written by agents.''} \\
     \leavevmode\uncover<3->{Frequent, repetitive work grew most; rare decisions grew least.}
       & \leavevmode\uncover<7->{Automate only if how often $\times$ time saved $>$ time to build.} \\
-    \leavevmode\uncover<4->{All 18 activities went up: agents are used everywhere,
-        but how much and how exactly is still open.}
-      & \leavevmode\uncover<8->{Agent use is a \emph{skill}: practice, expect failures
-        (his email agent: 100+\,h, net negative).} \\
+    \leavevmode\uncover<4->{Did agents take over the \emph{thinking}? We can't say:
+        a plan or a decision is short, so tokens are the wrong measure.}
+      & \leavevmode\uncover<8->{Agent use is a \emph{skill}: not everything can or should
+        be automated (degree of automation).} \\
   \end{tabular}
   \vfill
   {\tiny Sources: timdettmers.com/2026/01/13/use-agents-or-be-left-behind;
