@@ -1,8 +1,5 @@
 # Five visual designs
 
-**Second round:** [five more restrained designs based on Paper](PAPER.md).
-The original five below are kept for comparison.
-
 The same talk, wording, speaker notes and click-by-click reveals in five styles.
 The original `main.pdf` is not replaced. The transition-to-David TODO is still a
 LaTeX comment at the end of `main.tex`.

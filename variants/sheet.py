@@ -12,20 +12,13 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'variants'
 BUILD = OUT / '.build'
-ORIGINAL_THEMES = ('neon', 'terminal', 'swiss', 'aurora', 'paper')
-PAPER_THEMES = ('paper-warm', 'paper-journal', 'paper-stone', 'paper-sage', 'paper-ink')
-THEMES = ORIGINAL_THEMES + PAPER_THEMES
+THEMES = ('neon', 'terminal', 'swiss', 'aurora', 'paper')
 LABELS = {
     'neon': '01  NEON  /  Cyan, violet, synthwave grid',
     'terminal': '02  TERMINAL  /  Editor chrome, prompts, status bars',
     'swiss': '03  SWISS  /  Signal red, bold type, clean grid',
     'aurora': '04  AURORA  /  Violet-to-coral gradients, soft cards',
     'paper': '05  PAPER  /  Warm ivory, serif type, terracotta',
-    'paper-warm': '01  WARM  /  Ivory, Palatino, muted brown',
-    'paper-journal': '02  JOURNAL  /  White, Times-style serif, fine rules',
-    'paper-stone': '03  STONE  /  Grey, Charter headings, sans-serif body',
-    'paper-sage': '04  SAGE  /  Soft green, bold serif headings, sans-serif body',
-    'paper-ink': '05  INK  /  Dark graphite, warm serif type',
 }
 
 
@@ -68,7 +61,7 @@ def render(rows, stem, columns, dpi):
 
 def main(names):
     if not names:
-        names = list(ORIGINAL_THEMES)
+        names = list(THEMES)
     if any(n not in THEMES for n in names):
         raise ValueError('Unknown theme')
     for name in names:
@@ -83,8 +76,7 @@ def main(names):
         for name in names:
             ends = frame_ends(name)
             rows.append((LABELS[name], [(name, ends[i]) for i in (0, 6, -1)]))
-        stem = 'paper-compare' if all(n in PAPER_THEMES for n in names) else 'compare'
-        render(rows, stem, 3, 80)
+        render(rows, 'compare', 3, 80)
 
 
 if __name__ == '__main__':
