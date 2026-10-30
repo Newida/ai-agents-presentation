@@ -9,7 +9,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'variants'
 BUILD = OUT / '.build'
-THEMES = ('neon', 'terminal', 'swiss', 'aurora', 'paper')
+THEMES = ('neon', 'terminal', 'swiss', 'aurora', 'paper',
+          'paper-warm', 'paper-journal', 'paper-stone', 'paper-sage', 'paper-ink')
 
 
 def command(*args):
@@ -33,6 +34,14 @@ def main(names):
     baseline = frame_ranges(BUILD / 'original.nav')
     assert len(baseline) == 14, baseline
     for name in names:
+        # The only changes permitted in generated content are theme selection,
+        # frame fitting and themed pros/cons symbols. Notes and overlays survive.
+        source = (ROOT / 'main.tex').read_text()
+        expected = source.replace(r'\begin{frame}', r'\begin{frame}[shrink=0]')
+        expected = re.sub(r'(\\item(?:<[^>]*>)?)\[\+\]', r'\1[\\deckplus]', expected)
+        expected = re.sub(r'(\\item(?:<[^>]*>)?)\[--\]', r'\1[\\deckminus]', expected)
+        expected = r'\def\decktheme{' + name + '}\n' + expected
+        assert (BUILD / f'{name}.tex').read_text() == expected, name
         path = OUT / f'{name}.pdf'
         log = (BUILD / f'{name}.log').read_text()
         assert not re.search(r'^!|^Overfull|Missing character|^LaTeX Font Warning|^Package .* Warning', log, re.M), name

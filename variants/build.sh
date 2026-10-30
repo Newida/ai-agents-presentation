@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Build main.tex in five optional themes, without changing the default PDF.
-# Usage: variants/build.sh [neon terminal swiss aurora paper]
+# Build themed copies of main.tex without changing the default PDF.
+# Usage: variants/build.sh [theme ... | --paper]
 set -euo pipefail
 cd "$(dirname "$0")/.."
 names=("$@")
 if [ ${#names[@]} -eq 0 ]; then names=(neon terminal swiss aurora paper); fi
+if [ "${names[*]}" = --paper ]; then
+  names=(paper-warm paper-journal paper-stone paper-sage paper-ink)
+fi
 for name in "${names[@]}"; do
-  case "$name" in neon|terminal|swiss|aurora|paper) ;; *) echo "Unknown design: $name" >&2; exit 2 ;; esac
+  case "$name" in neon|terminal|swiss|aurora|paper|paper-warm|paper-journal|paper-stone|paper-sage|paper-ink) ;; *) echo "Unknown design: $name" >&2; exit 2 ;; esac
 done
 mkdir -p variants/.build
 # Reference layout for the overlay/content checks; main.pdf is never overwritten.

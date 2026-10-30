@@ -1,0 +1,25 @@
+% 04 Sage: bold serif headings, plain sans-serif text, a single quiet green rule.
+\def\paperbody{1}
+\def\paperfonts{\usepackage{mathpazo}\usepackage{tgpagella}\usepackage[scale=0.94]{tgheros}}
+\definecolor{edbg}{HTML}{F4F5EE}
+\definecolor{edink}{HTML}{29362E}
+\definecolor{edmuted}{HTML}{5D6B60}
+\definecolor{edaccent}{HTML}{42604B}
+\definecolor{edrule}{HTML}{CDD5C8}
+\definecolor{edpanel}{HTML}{EBEFE4}
+\input{themes/paper-base}
+\setbeamerfont{frametitle}{family=\rmfamily,series=\bfseries,size=\LARGE}
+\setbeamercolor{structure}{fg=edink}
+\tcbset{deck block/.append style={colback=edbg,left=8pt,
+  borderline west={1.2pt}{0pt}{edaccent}}}
+\setbeamertemplate{frametitle}{%
+  \vskip0.25cm
+  {\raggedright\usebeamerfont{frametitle}\color{edink}\insertframetitle\par}\vskip10pt}
+\setbeamertemplate{title page}{%
+  \begin{minipage}[t][0.74\textheight][t]{\textwidth}
+    \vspace{8pt}
+    {\color{edaccent}\rule{2.1cm}{1.5pt}\par}\vskip18pt
+    {\bfseries\paperheading{33}{38}}\vskip13pt
+    \begin{minipage}{0.84\linewidth}\papersubtitle\end{minipage}
+    \vfill\papermetadata
+  \end{minipage}}

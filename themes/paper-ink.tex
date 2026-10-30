@@ -1,0 +1,23 @@
+% 05 Ink: dark graphite, warm paper-coloured serif type; no glow or gradients.
+\def\paperbody{0}
+\def\paperfonts{\usepackage{mathpazo}\usepackage{tgpagella}\usepackage[scale=0.92]{tgheros}}
+\definecolor{edbg}{HTML}{262725}
+\definecolor{edink}{HTML}{F0ECE2}
+\definecolor{edmuted}{HTML}{BCB9AF}
+\definecolor{edaccent}{HTML}{D2B89A}
+\definecolor{edrule}{HTML}{53544D}
+\definecolor{edpanel}{HTML}{30312D}
+\input{themes/paper-base}
+\definecolor{warn}{HTML}{E8A394}
+\definecolor{good}{HTML}{B5C8A6}
+\setbeamercolor{structure}{fg=edaccent}
+\setbeamertemplate{title page}{%
+  \begin{minipage}[c][0.76\textheight][c]{\textwidth}
+    \centering
+    {\rmfamily\fontsize{36}{41}\selectfont\color{edink}\inserttitle\par}\vskip19pt
+    \begin{minipage}{0.86\linewidth}\centering
+      {\sffamily\fontsize{13}{18}\selectfont\color{edmuted}\insertsubtitle\par}
+    \end{minipage}\vskip28pt
+    {\sffamily\small\color{edink}\insertauthor\par}\vskip5pt
+    {\sffamily\footnotesize\color{edmuted}\insertdate\par}
+  \end{minipage}}
