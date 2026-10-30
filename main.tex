@@ -106,7 +106,13 @@
 
 \begin{frame}{OpenAI: What Researchers Use Agents For}
   \centering
-  \includegraphics[height=0.78\textheight]{assets/openai-usage-categories.pdf}\\[2pt]
+  \begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (chart)
+      {\includegraphics[height=0.78\textheight]{assets/openai-usage-categories.pdf}};
+    % click 2: vector zoom on the bar chart and its x axis, rest stays visible
+    \node<2>[draw=red, line width=2pt, inner sep=0, fill=black] at ([yshift=-4pt]chart.center)
+      {\includegraphics[width=0.98\textwidth, trim=22 2 58 238, clip]{assets/openai-usage-categories.pdf}};
+  \end{tikzpicture}\\[2pt]
   {\tiny Increase in output tokens per researcher per day, by research activity.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
