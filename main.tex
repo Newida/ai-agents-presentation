@@ -157,57 +157,27 @@
 %     vs. time to build (25 commits, Oct 26-29).
 
 \begin{frame}{Field Report: Automating Exercises}
-  {\small One exercise sheet (PDF) in; worked solutions and slides for the exercise class out.}
-  {\small\texttt{\$ auto\_exercises sheet.pdf}}\hfill
-  {\footnotesize\href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}}
-  \vspace{8pt}
-
-  \centering
-  \begin{tikzpicture}[
-      box/.style={draw, rounded corners=3pt, align=center, text width=2.15cm,
-                  minimum height=1.45cm, font=\scriptsize, inner sep=3pt},
-      arr/.style={-latex, thick}]
-    \node[box, fill=black!5] (pdf) at (0,0)    {\textbf{Sheet (PDF)}\\no solutions, no lecture notes};
-    \node[box, fill=blue!8]  (chk) at (2.85,0) {\textbf{1. Check inputs}\\stops if a data file or package is missing};
-    \node[box, fill=blue!8]  (sol) at (5.7,0)  {\textbf{2. Solve}\\every task, with Python code and plots};
-    \node[box, fill=blue!8]  (sld) at (8.55,0) {\textbf{3. Slides}\\fills a fixed pattern, checks every page};
-    \node[box, fill=black!5] (out) at (11.4,0) {\textbf{Output}\\solutions, code, slides, a report};
-    \foreach \a/\b in {pdf/chk, chk/sol, sol/sld, sld/out} \draw[arr] (\a) -- (\b);
-  \end{tikzpicture}\par\vspace{2pt}
-  {\scriptsize Three agent runs (Claude Code or Codex). No human in the loop once the inputs are complete.\par}
-  \vspace{8pt}
-
-  % Click 2: costs, click 3: failures, click 4: takeaway.
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.47\textwidth}
-      \begin{uncoverenv}<2->
-        \raggedright
-        \textbf{What it costs}
-        \footnotesize
-        \begin{itemize}
-          \item Solving one sheet (15 tasks, none blocked): \$3.37 at API prices.
-          \item Slides: another 10+ minutes of agent time.
-          \item Building it: 25 commits over 4 days.
-        \end{itemize}
-      \end{uncoverenv}
-    \end{column}
-    \begin{column}{0.47\textwidth}
-      \begin{uncoverenv}<3->
-        \raggedright
-        \textbf{Where it fails}
-        \footnotesize
-        \begin{itemize}
-          \item No independent check yet: the solver grades its own work.
-          \item Good slides were the hard part: one deck by hand first,
-                then its structure written down for the agent.
-        \end{itemize}
-      \end{uncoverenv}
-    \end{column}
-  \end{columns}
-  \vfill
-  \begin{uncoverenv}<4->
-    \centering\small Agents do the doing; taste and checking stay with me.\par
-  \end{uncoverenv}
+  % One step per click: problem, what is automated, what is left, link.
+  \begin{enumerate}
+    \setlength{\itemsep}{1em}
+    \item<1-> \textbf{The problem.} PhD student, tutoring an exercise class every two weeks:
+      \begin{itemize}\footnotesize
+        \item 2\,h exercise class + solving the tasks + making the slides
+        \item rough estimate: \textbf{8\,h every two weeks} (4\,h/week)
+      \end{itemize}
+    \item<2-> \textbf{Automate as much as possible.}
+      \begin{itemize}\footnotesize
+        \item[a)] Task solving: an agent solves every task, with code and plots
+        \item[b)] Slide creation: an agent turns the solutions into the class slides
+      \end{itemize}
+    \item<3-> \textbf{Left to do:} understand the solutions, make small updates to the slides.
+      \begin{itemize}\footnotesize
+        \item work reduced to \textbf{2\,h every two weeks}
+      \end{itemize}
+    \item<4-> \textbf{Try it yourself:}
+      \href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}\\
+      {\footnotesize\texttt{\$ auto\_exercises sheet.pdf}}
+  \end{enumerate}
 \end{frame}
 
 % 2. ~6 min
