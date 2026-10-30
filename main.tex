@@ -2,6 +2,7 @@
 \usetheme{default}
 \setbeamertemplate{navigation symbols}{}
 \usepackage{tikz}
+\usepackage{eurosym}
 
 \title{Research with AI Agents}
 \subtitle{What Works, What It Costs, and What an Institute Needs}
@@ -205,13 +206,165 @@
 % per person vs. once for the whole institute. Numbers are rough illustrations.
 % Also: only the institute can build it -- it needs the official form and admin-system access.
 
-\begin{frame}{What It Costs}
+\begin{frame}{What Agents Cost}
+  \begin{itemize}
+    \item<1-> \textbf{Me:} Claude \emph{and} Codex, 20\,\euro{} plan each: \textbf{40\,\euro{} per month}.
+      One plan alone is not enough.
+    \item<2-> \textbf{Colleagues:} 100\,\euro{} Claude plan, and they hit its limit \textbf{every week}.
+    \item<3-> \textbf{As we have seen:} every Lamarr member needs AI agents.
+      You cannot work without them anymore.
+  \end{itemize}
+  \medskip
+  \uncover<4->{{\small\color{red}
+    \textbf{Dear management:} do not assume that employees will continue spending their own money.
+    We are bottlenecking ourselves: we don't want to spend 100\,\euro{} per month just to do our work,
+    so we spend 20\,\euro{}, effectively leaving performance on the table.
+    Also, people will just switch to other institutes, even outside Germany,
+    that supply them with the AI they want and need, for free, to get important work done.\par}}
+  \medskip
+  \uncover<5->{\centering\Large So let's talk about costs.\par}
 \end{frame}
+% Notes: "If you still cannot see it, you are super delusional."
+% Two decisions follow: 1) subscription vs. API (individual), 2) self-hosting (institute only).
 
-\begin{frame}{What an Institute Needs}
+\begin{frame}{Decision 1: Subscription or API?}
+  \small
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \uncover<1->{\textbf{Subscription} (20--200\,\euro{}/month)
+      \begin{itemize}
+        \item[+] flat price, no surprise bills
+        \item[+] very cheap for heavy interactive use
+        \item[--] usage caps (5-hour and weekly)
+        \item[--] one person, one login; not for pipelines
+      \end{itemize}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \uncover<2->{\textbf{API} (pay per token)
+      \begin{itemize}
+        \item[+] no caps, run many agents in parallel
+        \item[+] scripts, batch jobs, shared tools
+        \item[--] heavy daily use gets expensive fast
+        \item[--] needs a budget and someone watching it
+      \end{itemize}}
+    \end{column}
+  \end{columns}
+  \medskip
+  % TODO: cost comparison. The ~680$ (Claude) and ~145$ (Codex) are rough estimates from my
+  %   usage logs at list prices (token prices not verified), not invoices. Replace with a
+  %   measured subscription-vs-API comparison: same tasks run both ways (planned QHack run,
+  %   branch ai/qhack-sub-vs-api-20261021, commit 0343df1, not run yet); check current prices.
+  \uncover<3->{%
+  \begin{block}{Our comparison: one month of my usage, priced at API list prices}
+    \centering
+    \begin{tabular}{lccc}
+      & subscription & same usage via API & factor \\ \hline
+      Claude & 20\,\$ (Pro) & $\sim$680\,\$ & $\sim$34$\times$ \\
+      Codex  & 20\,\$ (Plus) & $\sim$145\,\$ & $\sim$7$\times$ \\
+    \end{tabular}\par\smallskip
+    \raggedright But one batch job, 27 benchmark tasks via API, cost only \textbf{2.25\,\$}.
+  \end{block}}
+  \uncover<4->{\textbf{Rule of thumb:} people $\to$ subscription; pipelines and batch jobs $\to$ API.}
 \end{frame}
+% Notes: API figures are estimates from my own usage log at list prices, not invoices.
+% The 2.25 $ is the QHack 27-task run with gpt-6.1-sol via API.
 
+\begin{frame}{Decision 2: Self-Hosting Open Models}
+  \small
+  \begin{itemize}
+    \item<1-> \textbf{Not for individuals}, but realistic for Lamarr: the institute already runs large GPU clusters.
+    \item<2-> \textbf{Open-weight models:} Qwen (Alibaba), DeepSeek, GPT-OSS (OpenAI), Kimi (Moonshot), GLM (Zhipu), Mistral.
+    \item<3-> \textbf{Go big, not small:} the frontier-class open models (0.5--1T parameters, e.g.\ DeepSeek, Kimi, GLM, Qwen-Coder)
+      need $\sim$1\,TB of GPU memory per copy: one or two full 8-GPU nodes, several of them to serve everyone.
+  \end{itemize}
+  \medskip
+  \uncover<4->{%
+  \begin{block}{Quality: our quantum-coding benchmark (27 tasks, solved), so far only small open models}
+    \centering
+    \begin{tabular}{lc}
+      Qwen, self-hosted on one GPU & 10/27 \\
+      GPT-OSS, self-hosted on one GPU & 12--15/27 \\
+      GPT-5-nano (small cloud model) & 14/27 \\
+      frontier cloud model (GPT-6.1-sol) & \textbf{26/27} \\
+    \end{tabular}
+  \end{block}}
+  \uncover<5->{Small open models are clearly behind. The largest open models are much closer to the frontier;
+  on our tasks they are \textbf{still untested}.}
+\end{frame}
+% Notes: GPT-OSS 12/27 with 2K context, 15/27 with 8K context. One benchmark, our own tasks;
+% indicates the gap, not a general ranking. Only single-GPU models were tested; a 0.5-1T open model
+% on the cluster has not been run on these tasks. "Much closer to the frontier" = public leaderboards
+% (gap of months, not years), not our own measurement.
+
+\begin{frame}{Self-Hosting for the Institute: Pros and Cons}
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Quality and performance}
+      \begin{itemize}
+        \item<1->[+] data never leaves Lamarr (privacy, unpublished work, GDPR)
+        \item<1->[+] no vendor caps or outages, models don't change under you
+        \item<1->[+] fine-tune on our own data, research on the models themselves
+        \item<2->[--] even the best open models trail the closed frontier (by months), most on hard agentic tasks
+        \item<2->[--] slower when many people use it at once
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Costs}
+      \begin{itemize}
+        \item<3->[+] no per-token bill: more use costs nothing extra
+        \item<3->[+] shared by all members, predictable budget
+        \item<3->[+] Lamarr already has the GPUs and the people who run them
+        \item<4->[--] a frontier-class model occupies whole nodes around the clock, taken from research jobs
+        \item<4->[--] power, cooling and staff to run it
+        \item<4->[--] hardware ages in 3--5 years; idle at night
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \medskip
+  \uncover<5->{%
+  \begin{block}{Rough comparison}
+    \centering 2 nodes $\times$ 300\,k\euro{} over 4 years $\approx$ 12.5\,k\euro{}/month
+    $\approx$ \textbf{300 people $\times$ 40\,\euro{}} $\approx$ \textbf{125 people $\times$ 100\,\euro{}}
+    \par\smallskip\raggedright With Lamarr's compute, a frontier-class open model for everyone is realistic:
+    it pays off through privacy, scale and no caps; the closed models keep a lead of months.
+  \end{block}}
+\end{frame}
+% Notes: 300 k EUR is an illustrative 8-GPU-node price, not a quote; excludes power and staff.
+% 2 nodes = roughly one copy of a ~1T-parameter model; serving hundreds of users needs more.
+
+% Takeaways (one per click), grouped by the three questions in the subtitle.
+% Where each one comes from:
+%   - doing vs. decisions: OpenAI chart + Dettmers ("decisions, and taste will be
+%     needed -- even if 90% of the work happens through AI"); checking: Field Report.
+%   - 6 h -> 2 h: my own estimate (Field Report), every two weeks.
+%   - costs: What Agents Cost, Decision 1 (API figures are rough, see TODO there).
+%   - 10 000 people: travel-expense example, illustrative numbers.
+%   - open model: Decision 2 + Pros/Cons; realistic with Lamarr's GPUs, months
+%     behind the closed frontier, not yet tested on our tasks.
 \begin{frame}{Takeaways}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      \uncover<1->{\structure{\textbf{For the individual}}}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.6em}
+        \item<1-> \textbf{You need to use AI agents.}
+        \item<2-> \textbf{Use AI agents as much as possible.}
+        \item<3-> \textbf{Automate, to a degree, only what pays off:}\\[2pt]
+          {\small$\text{how often} \times \text{time saved} > \text{time to build}$}
+        \item<4-> \textbf{Agent use is a skill} you need to learn.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \uncover<5->{\structure{\textbf{For the institute}}}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.6em}
+        \item<5-> \textbf{Automate workflows for every individual:} what never pays off for one person pays off for 10\,000.
+        \item<6-> \textbf{Provide your employees with agents.}
+        \item<7-> \textbf{Consider self-hosting.}
+      \end{enumerate}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % 3. ~3 min -- optional: kept last so it can be cut if time runs short
