@@ -14,6 +14,7 @@
   \end{frame}
 }
 
+\usetikzlibrary{calc}
 \begin{document}
 
 \begin{frame}
@@ -97,21 +98,58 @@
 \begin{frame}{Research Acceleration at OpenAI}
 \end{frame}
 
-\begin{frame}{OpenAI: Agent Usage per Researcher Keeps Rising}
+\begin{frame}{FOMO Headline: OpenAI Agent Usage}
   \centering
   \includegraphics[height=0.78\textheight]{assets/openai-median-usage.pdf}\\[2pt]
   {\tiny Median researcher, daily \$ spent on internal coding agents.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
 
-\begin{frame}{OpenAI: What Researchers Use Agents For}
+\begin{frame}{What do agents do at OpenAI?}
+% --- Reading of the chart (speaker notes, not shown) -----------------------
+% What it shows: increase in OUTPUT TOKENS per researcher per day since
+% the start of 2026, split into 18 research activities (6 groups).
+% Values from the chart's data labels; total ~ +654k tokens/day.
+% Top 3 bars = 75% of the increase:
+%   3.1 Research & infrastructure code   +198k (30%)
+%   6.2 Technical help & review          +159k (24%)
+%   4.1 Launch, monitor & debug runs     +133k (20%)
+% Next: 5.1 Analyze experiment results +40k, 4.2 Compute-cluster ops +37k;
+%   everything else below +20k.
+% By group (sum of bars):
+%   Build ~212k (32%) | Communicate ~185k (28%, almost all 6.2) |
+%   Run ~183k (28%)   | Analyze ~55k (8%) | Design ~15k (2%) | Decide ~4k (<1%)
+% Takeaway for the talk:
+%   1. Agents took over the DOING -- writing code, running/debugging jobs,
+%      answering technical questions. Fits the chart: these tasks are
+%      token-heavy by nature, so the big bars are expected.
+%   2. Did agents take over the THINKING? The chart can't tell us. What to
+%      work on +2.3k, continue or stop +0.2k, planning +5.1k, reviewing
+%      external research +0.7k -- but even fully AI-driven, these tasks
+%      produce short outputs (a decision, a plan, a summary). Output tokens
+%      are the wrong measure here; small bars != little use.
+%   3. What we CAN say: every one of the 18 activities went up -- agents are
+%      used everywhere in the research process. HOW MUCH and HOW EXACTLY
+%      they are used for the thinking parts stays open.
+% Caveats: self-reported by OpenAI; tokens measure volume, not value;
+%   absolute increase, so small categories may still have grown a lot
+%   in %; how calls were assigned to categories is not stated.
+% --------------------------------------------------------------------------
   \centering
   \begin{tikzpicture}
     \node[anchor=south west, inner sep=0] (chart)
       {\includegraphics[height=0.78\textheight]{assets/openai-usage-categories.pdf}};
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
-    \node<2>[draw=red, line width=2pt, inner sep=0, fill=black] at ([yshift=-4pt]chart.center)
-      {\includegraphics[width=0.98\textwidth, trim=22 2 58 238, clip]{assets/openai-usage-categories.pdf}};
+    \only<2>{
+      \node[draw=red, line width=2pt, inner sep=0, fill=black] (zoom) at ([yshift=-4pt]chart.center)
+        {\includegraphics[width=0.98\textwidth, trim=22 2 58 238, clip]{assets/openai-usage-categories.pdf}};
+      % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
+      \coordinate (cl) at ($(zoom.south west)!0.491!(zoom.north west)$);
+      \coordinate (cr) at ($(zoom.south east)!0.491!(zoom.north east)$);
+      \draw[red, line width=1.5pt, dashed] (cl) -- (cr);
+      \node[red, font=\bfseries\small, anchor=south east] at ($(cl)!0.98!(cr)$) {doing $\uparrow$};
+      \node[red, font=\bfseries\small, anchor=north east] at ($(cl)!0.98!(cr)$) {thinking $\downarrow$};
+    }
   \end{tikzpicture}\\[2pt]
   {\tiny Increase in output tokens per researcher per day, by research activity.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
