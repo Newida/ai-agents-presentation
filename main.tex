@@ -172,32 +172,29 @@
     \vspace*{\fill}
 \end{frame}
 
-\begin{frame}{Dettmers' Way of Using AI}
-  {\small Tim Dettmers (CMU / Ai2), blog post, January 2026}
+\begin{frame}{Dettmers' Interpretation}
+  {\small Tim Dettmers' hypotheses, read against the OpenAI usage data}
   \vspace{6pt}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \textbf{The claim}
-      \begin{itemize}
-        \item ``More than 90\% of code and text should be written by agents.''
-        \item His blog posts: $>95\%$ AI-generated, he edits
-        \item One post: days $\rightarrow$ $\sim$3\,h\\
-          {\footnotesize 1\,h dictate, 10\,min agent, 2\,h review}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \textbf{When it pays off}
-      \begin{itemize}
-        \item Automate only if\\
-          {\footnotesize how often $\times$ time saved $>$ time to build}
-        \item Otherwise: do it by hand
-        \item His failure: email agent, 100+\,h, net negative
-        \item Agent use is a \emph{skill}: practice, expect failures
-      \end{itemize}
-    \end{column}
-  \end{columns}
+  \renewcommand{\arraystretch}{1.35}
+  \footnotesize
+  \begin{tabular}{@{}p{0.45\textwidth}p{0.49\textwidth}@{}}
+    \textbf{Dettmers says} & \textbf{What the OpenAI chart suggests} \\ \hline
+    ``More than 90\% of code and text should be written by agents.''
+      & Agents took over the \emph{doing}: code, runs, technical help
+        are $\sim$75\% of the extra tokens. \\
+    His posts are $>95\%$ AI, but he still dictates (1\,h) and reviews (2\,h).
+      & Did agents take over the \emph{thinking}? The chart can't say:
+        a plan or a decision is short, so tokens are the wrong measure. \\
+    Automate only if how often $\times$ time saved $>$ time to build.
+      & Frequent, repetitive work grew most; rare decisions grew least. \\
+    Agent use is a \emph{skill}: practice, expect failures
+      (his email agent: 100+\,h, net negative).
+      & All 18 activities went up: agents are used everywhere,
+        but how much and how exactly is still open. \\
+  \end{tabular}
   \vfill
-  {\tiny Source: timdettmers.com/2026/01/13/use-agents-or-be-left-behind}
+  {\tiny Sources: timdettmers.com/2026/01/13/use-agents-or-be-left-behind;
+  OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
 
 % 3. ~6 min
