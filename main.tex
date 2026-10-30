@@ -26,7 +26,7 @@
 \end{frame}
 
 % 1. ~6 min
-\section{OpenAI and ``Use Agents''}
+\section{OpenAI and Agent Usage}
 
 \begin{frame}{FOMO Headline: OpenAI Agent Usage}
   \centering
@@ -131,6 +131,83 @@
   \vfill
   {\tiny Sources: timdettmers.com/2026/01/13/use-agents-or-be-left-behind;
   OpenAI, ``Research acceleration'' (self-reported).}
+\end{frame}
+
+% Field report (speaker notes). Sources: github.com/Newida/AutomatingExercises
+% (README, commit history) and the first real run on an exercise sheet (2026-10-26).
+%   - Why this task: every exercise sheet repeats the same work (read, solve, code,
+%     plot, make slides), so by Dettmers' rule it is worth automating. The README
+%     says the approach follows his guide.
+%   - How: one command; the PDF is the only input (data files it names are looked
+%     up next to it). Three agent runs (Claude Code by default, OpenAI Codex with
+%     --agent codex): check inputs, solve, make slides. Agents never install
+%     packages; the solver has no web access (Claude Code).
+%   - First real run (solve stage only, Claude Code): 15 tasks, none partial or
+%     blocked, $3.37 at API prices. Where the sheet prints reference values, the
+%     results match them; the rest was not checked independently.
+%   - It also flagged problems in the sheet itself: two typos, a loss that can go
+%     negative, and weights that are not the maximum-likelihood ones.
+%   - The slides were the hard part (15 of 25 commits): first one deck by hand,
+%     then its structure written down sentence by sentence
+%     (templates/slides/pattern.md) plus a personal style file (styles/lukas.md);
+%     the hand-made deck was removed afterwards.
+%   - Checking stays human: the solver grades its own work (confidence per task
+%     in REPORT.md); read REPORT.md and slides/NOTES.md before class.
+%   - Dettmers' rule for this tool: sheets per semester x time saved per sheet
+%     vs. time to build (25 commits, Oct 26-29).
+
+\begin{frame}{Field Report: Automating Exercises}
+  {\small One exercise sheet (PDF) in; worked solutions and slides for the exercise class out.}
+  {\small\texttt{\$ auto\_exercises sheet.pdf}}\hfill
+  {\footnotesize\href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}}
+  \vspace{8pt}
+
+  \centering
+  \begin{tikzpicture}[
+      box/.style={draw, rounded corners=3pt, align=center, text width=2.15cm,
+                  minimum height=1.45cm, font=\scriptsize, inner sep=3pt},
+      arr/.style={-latex, thick}]
+    \node[box, fill=black!5] (pdf) at (0,0)    {\textbf{Sheet (PDF)}\\no solutions, no lecture notes};
+    \node[box, fill=blue!8]  (chk) at (2.85,0) {\textbf{1. Check inputs}\\stops if a data file or package is missing};
+    \node[box, fill=blue!8]  (sol) at (5.7,0)  {\textbf{2. Solve}\\every task, with Python code and plots};
+    \node[box, fill=blue!8]  (sld) at (8.55,0) {\textbf{3. Slides}\\fills a fixed pattern, checks every page};
+    \node[box, fill=black!5] (out) at (11.4,0) {\textbf{Output}\\solutions, code, slides, a report};
+    \foreach \a/\b in {pdf/chk, chk/sol, sol/sld, sld/out} \draw[arr] (\a) -- (\b);
+  \end{tikzpicture}\par\vspace{2pt}
+  {\scriptsize Three agent runs (Claude Code or Codex). No human in the loop once the inputs are complete.\par}
+  \vspace{8pt}
+
+  % Click 2: costs, click 3: failures, click 4: takeaway.
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      \begin{uncoverenv}<2->
+        \raggedright
+        \textbf{What it costs}
+        \footnotesize
+        \begin{itemize}
+          \item Solving one sheet (15 tasks, none blocked): \$3.37 at API prices.
+          \item Slides: another 10+ minutes of agent time.
+          \item Building it: 25 commits over 4 days.
+        \end{itemize}
+      \end{uncoverenv}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \begin{uncoverenv}<3->
+        \raggedright
+        \textbf{Where it fails}
+        \footnotesize
+        \begin{itemize}
+          \item No independent check yet: the solver grades its own work.
+          \item Good slides were the hard part: one deck by hand first,
+                then its structure written down for the agent.
+        \end{itemize}
+      \end{uncoverenv}
+    \end{column}
+  \end{columns}
+  \vfill
+  \begin{uncoverenv}<4->
+    \centering\small Agents do the doing; taste and checking stay with me.\par
+  \end{uncoverenv}
 \end{frame}
 
 % 2. ~6 min
