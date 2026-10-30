@@ -17,6 +17,13 @@
 }
 
 \usetikzlibrary{calc}
+% Semantic colours (the design variants in themes/ redefine them)
+\colorlet{warn}{red}
+\colorlet{good}{green!50!black}
+\colorlet{chartmark}{red}
+% Design variant: variants/build.sh <name> loads themes/<name>.tex (default: none)
+\providecommand\decktheme{}
+\ifx\decktheme\empty\else\input{themes/\decktheme}\fi
 \begin{document}
 
 \begin{frame}
@@ -78,9 +85,9 @@
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
       \coordinate (cl) at ($(zoom.south west)!0.491!(zoom.north west)$);
       \coordinate (cr) at ($(zoom.south east)!0.491!(zoom.north east)$);
-      \draw[red, line width=1.5pt, dashed] (cl) -- (cr);
-      \node[red, font=\bfseries\small, anchor=south east] at ($(cl)!0.98!(cr)$) {doing $\uparrow$};
-      \node[red, font=\bfseries\small, anchor=north east] at ($(cl)!0.98!(cr)$) {thinking $\downarrow$};
+      \draw[chartmark, line width=1.5pt, dashed] (cl) -- (cr);
+      \node[chartmark, font=\bfseries\small, anchor=south east] at ($(cl)!0.98!(cr)$) {doing $\uparrow$};
+      \node[chartmark, font=\bfseries\small, anchor=north east] at ($(cl)!0.98!(cr)$) {thinking $\downarrow$};
     }
   \end{tikzpicture}\\[2pt]
   {\tiny Increase in output tokens per researcher per day, by research activity.
@@ -178,7 +185,7 @@
       \end{itemize}
     \item<4-> \textbf{Ask your agent to try it:}
       \href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}\
-      {\color{red}\textbf{Avoid:} Don't do anything BY HAND on this project. If you want to change it, ASK YOUR AGENT to change it.}
+      {\color{warn}\textbf{Avoid:} Don't do anything BY HAND on this project. If you want to change it, ASK YOUR AGENT to change it.}
   \end{enumerate}
 \end{frame}
 
@@ -198,8 +205,8 @@
     \centering
     \begin{tabular}{lccc}
       & how often $\times$ time saved & time to build & \\ \hline
-      \uncover<5->{one person} & \uncover<5->{$3 \times 3$\,h $= 9$\,h/year} & \uncover<5->{200\,h} & \uncover<5->{\textcolor{red}{\textbf{never pays}}} \\
-      \uncover<6->{institute, 10\,000 people} & \uncover<6->{$10\,000 \times 9$\,h $= 90\,000$\,h/year} & \uncover<6->{200\,h} & \uncover<6->{\textcolor{green!50!black}{\textbf{pays $>$400$\times$}}} \\
+      \uncover<5->{one person} & \uncover<5->{$3 \times 3$\,h $= 9$\,h/year} & \uncover<5->{200\,h} & \uncover<5->{\textcolor{warn}{\textbf{never pays}}} \\
+      \uncover<6->{institute, 10\,000 people} & \uncover<6->{$10\,000 \times 9$\,h $= 90\,000$\,h/year} & \uncover<6->{200\,h} & \uncover<6->{\textcolor{good}{\textbf{pays $>$400$\times$}}} \\
     \end{tabular}
   \end{block}}
 \end{frame}
@@ -216,7 +223,7 @@
       You cannot work without them anymore.
   \end{itemize}
   \medskip
-  \uncover<4->{{\small\color{red}
+  \uncover<4->{{\small\color{warn}
     \textbf{Dear management:} do not assume that employees will continue spending their own money.
     We are bottlenecking ourselves: we don't want to spend 100\,\euro{} per month just to do our work,
     so we spend 20\,\euro{}, effectively leaving performance on the table.
@@ -368,5 +375,6 @@
   \end{columns}
 \end{frame}
 
+% TODO: Transition to david presentation: Voice to text, VScode, /goal, Claude orchestrating small local subagents
 
 \end{document}

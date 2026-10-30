@@ -1,0 +1,109 @@
+% Design variant "neon": near-black, glowing cyan -> violet -> pink.
+\input{themes/common}
+\makeatletter
+\usepackage[scale=0.92]{tgheros}
+\newcommand\deckdisplay{\fontfamily{qag}\selectfont}
+\definecolor{nbg}{HTML}{070A13}
+\definecolor{nsurface}{HTML}{10162A}
+\definecolor{nline}{HTML}{263052}
+\definecolor{nfg}{HTML}{E6EAF4}
+\definecolor{nmuted}{HTML}{8790AB}
+\definecolor{ncyan}{HTML}{22D3EE}
+\definecolor{nviolet}{HTML}{8B5CF6}
+\definecolor{npink}{HTML}{F472B6}
+\definecolor{warn}{HTML}{FF6B8F}
+\definecolor{good}{HTML}{3DEBA8}
+\definecolor{chartmark}{HTML}{FF6B8F}
+\pgfdeclarehorizontalshading{neon}{100bp}{color(0bp)=(ncyan); color(50bp)=(nviolet); color(100bp)=(npink)}
+
+\arrayrulecolor{nmuted}
+
+\setbeamercolor{background canvas}{bg=nbg}
+\setbeamercolor{normal text}{fg=nfg,bg=nbg}
+\setbeamercolor{structure}{fg=ncyan}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{block title}{fg=ncyan}
+\setbeamercolor{block body}{fg=nfg}
+\setbeamercolor{itemize item}{fg=ncyan}
+\setbeamercolor{enumerate item}{fg=ncyan}
+\setbeamerfont{frametitle}{family=\deckdisplay,series=\bfseries,size=\Large}
+\setbeamerfont{kicker}{size=\tiny,series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries,size=\small}
+
+\setbeamertemplate{background}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \ifnum\c@framenumber=\@ne
+      \fill[nviolet, fill opacity=0.55, path fading=deckglow] (0.8\paperwidth,0.78\paperheight) circle (9cm);
+      \fill[ncyan, fill opacity=0.25, path fading=deckglow] (0.05\paperwidth,0.1\paperheight) circle (7cm);
+      \begin{scope}
+        \clip (0,0) rectangle (\paperwidth,2.3cm);
+        \foreach \k in {1,...,9}{\draw[ncyan, line width=0.35pt, opacity=0.5] (0,{2.3cm*(\k/9)^2}) -- (\paperwidth,{2.3cm*(\k/9)^2});}
+        \foreach \x in {-14,...,14}{\draw[ncyan, line width=0.35pt, opacity=0.5] ({0.5*\paperwidth+\x*1.2cm},0) -- ({0.5*\paperwidth+\x*0.2cm},2.3cm);}
+      \end{scope}
+      \fill[nbg, path fading=north] (0,-0.05cm) rectangle (\paperwidth,2.35cm);
+      \shade[shading=neon] (0,2.3cm) rectangle (\paperwidth,2.34cm);
+    \else\ifdeck@divider
+      \fill[nviolet, fill opacity=0.5, path fading=deckglow] (0.2\paperwidth,0.5\paperheight) circle (8cm);
+      \fill[npink, fill opacity=0.18, path fading=deckglow] (\paperwidth,0) circle (7cm);
+    \else
+      \fill[nviolet, fill opacity=0.32, path fading=deckglow] (\paperwidth,\paperheight) circle (9cm);
+      \fill[ncyan, fill opacity=0.14, path fading=deckglow] (0,0) circle (8cm);
+    \fi\fi
+  \end{tikzpicture}}
+
+\setbeamertemplate{frametitle}{%
+  \vskip0.4cm
+  \deckifsection{{\usebeamerfont{kicker}\color{ncyan}\textls[160]{\deckSECTION}\par}\vskip3pt}{}%
+  {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+  \vskip5pt
+  \nointerlineskip\hbox{\tikz\shade[shading=neon] (0,0) rectangle (2.4cm,1.5pt);}%
+  \vskip6pt}
+
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.6cm);
+    \ifnum\c@framenumber>\@ne
+      \node[anchor=west, font=\tiny, text=nmuted] at (1cm,0.3cm) {\insertshortauthor\hspace{0.5em}/\hspace{0.5em}\insertshorttitle};
+      \node[anchor=east, font=\tiny\bfseries, text=nmuted] at (\paperwidth-1cm,0.3cm) {\insertframenumber\,/\,\inserttotalframenumber};
+      \fill[nline] (0,0) rectangle (\paperwidth,1.6pt);
+      \shade[shading=neon] (0,0) rectangle ({\insertframenumber/\inserttotalframenumber*\paperwidth},1.6pt);
+    \fi
+  \end{tikzpicture}}
+
+\setbeamertemplate{itemize item}{\tikz[baseline=-0.6ex]{\fill[ncyan,fill opacity=0.3](0,0) circle (3.4pt);\fill[ncyan](0,0) circle (1.8pt);}}
+\setbeamertemplate{itemize subitem}{\tikz[baseline=-0.6ex]\fill[npink](0,-0.55pt) rectangle (4.2pt,0.55pt);}
+\setbeamertemplate{enumerate item}{\tikz[baseline=(n.base)]\node[circle,draw=ncyan,line width=0.7pt,inner sep=0pt,minimum size=1.5em,font=\scriptsize\bfseries,text=ncyan](n){\insertenumlabel};}
+\renewcommand\deckplus{\tikz[baseline=-0.62ex]{\fill[good](0,0) circle (0.5em);\draw[nbg,line width=1.2pt](-0.26em,0)--(0.26em,0)(0,-0.26em)--(0,0.26em);}}
+\renewcommand\deckminus{\tikz[baseline=-0.62ex]{\fill[warn](0,0) circle (0.5em);\draw[nbg,line width=1.2pt](-0.26em,0)--(0.26em,0);}}
+
+\tcbset{deck block/.style={enhanced, colback=nsurface, colframe=nline, coltext=nfg, boxrule=0.5pt, arc=5pt,
+  left=10pt, right=8pt, top=5pt, bottom=6pt, before skip=4pt, after skip=2pt,
+  overlay={\begin{scope}\clip[rounded corners=5pt] (frame.south west) rectangle (frame.north east);
+    \shade[top color=ncyan, bottom color=npink] (frame.south west) rectangle ([xshift=2.4pt]frame.north west);\end{scope}}}}
+
+\setbeamertemplate{title page}{%
+  {\usebeamerfont{kicker}\color{ncyan}\textls[220]{\MakeUppercase{\insertdate}}\par}
+  \vskip10pt
+  \deckgradtext[0.95\textwidth]{\deckdisplay\bfseries\fontsize{38}{42}\selectfont}{\inserttitle}{shading=neon}\par
+  \vskip12pt
+  {\large\color{nfg}\insertsubtitle\par}
+  \vskip20pt
+  {\small\color{nmuted}\insertauthor\par}
+  \vskip2.2cm}
+
+\newcommand\deck@tocentry[2]{%
+  \leavevmode\parbox[t]{2.4em}{\color{#1}\bfseries\small 0\inserttocsectionnumber}%
+  \parbox[t]{\dimexpr\linewidth-2.5em}{\raggedright\deckdisplay\bfseries\large\color{#2}\inserttocsection}\par\vskip9pt}
+\setbeamertemplate{section in toc}{\deck@tocentry{ncyan}{white}}
+\setbeamertemplate{section in toc shaded}{\deck@tocentry{nmuted!50!nbg}{nmuted!50!nbg}}
+\newcommand\deckdivider{%
+  \begin{minipage}[c]{0.36\textwidth}
+    \deckgradtext{\deckdisplay\bfseries\fontsize{110}{110}\selectfont}{0\thesection}{shading=neon}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.6\textwidth}
+    {\usebeamerfont{kicker}\color{nmuted}\textls[220]{OUTLINE}\par}\vskip10pt
+    \tableofcontents[currentsection]
+  \end{minipage}}
+
+\makeatother

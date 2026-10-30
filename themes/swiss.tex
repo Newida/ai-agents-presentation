@@ -1,0 +1,83 @@
+% Design variant "swiss": white, black and signal red; big bold grotesque type on a grid.
+\input{themes/common}
+\makeatletter
+\usepackage[scale=0.92]{tgheros}
+\definecolor{sink}{HTML}{111111}
+\definecolor{sred}{HTML}{E30613}
+\definecolor{sgray}{HTML}{767676}
+\definecolor{slight}{HTML}{F0F0F0}
+\definecolor{warn}{HTML}{E30613}
+\definecolor{good}{HTML}{00824B}
+\definecolor{chartmark}{HTML}{FF3B30}
+
+\arrayrulecolor{sgray}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=sink,bg=white}
+\setbeamercolor{structure}{fg=sred}
+\setbeamercolor{frametitle}{fg=sink}
+\setbeamercolor{block title}{fg=sink}
+\setbeamercolor{block body}{fg=sink}
+\setbeamercolor{itemize item}{fg=sred}
+\setbeamercolor{enumerate item}{fg=sred}
+\setbeamerfont{block title}{series=\bfseries,size=\small}
+
+\setbeamertemplate{background}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \ifdeck@divider
+      \fill[sred] (0,0) rectangle (\paperwidth,\paperheight);
+    \else\ifnum\c@framenumber>\@ne
+      \fill[sred] (\paperwidth-1.32cm,\paperheight-0.82cm) rectangle (\paperwidth-1cm,\paperheight-0.5cm);
+    \fi\fi
+  \end{tikzpicture}}
+\setbeamertemplate{frametitle}{%
+  \vskip0.45cm
+  \deckifsection{{\tiny\bfseries{\color{sred}0\thesection}\hspace{0.7em}\decksection\par}\vskip4pt}{}%
+  {\fontsize{16.5}{19}\selectfont\bfseries\color{sink}\textls[-25]{\insertframetitle}\par}%
+  \vskip6pt}
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.62cm);
+    \ifnum\c@framenumber>\@ne
+      \draw[sink, line width=0.6pt] (1cm,0.47cm) -- (\paperwidth-1cm,0.47cm);
+      \node[anchor=north west, inner sep=0pt, font=\tiny\bfseries, text=sink] at (1cm,0.36cm) {\insertshorttitle};
+      \node[anchor=north west, inner sep=0pt, font=\tiny, text=sgray] at (0.42\paperwidth,0.36cm) {\insertshortauthor};
+      \node[anchor=north east, inner sep=0pt, font=\tiny\bfseries, text=sred] at (\paperwidth-1cm,0.36cm) {\insertframenumber\,/\,\inserttotalframenumber};
+    \fi
+  \end{tikzpicture}}
+
+\setbeamertemplate{itemize item}{\tikz[baseline=-0.6ex]\fill[sred](-2.1pt,-2.1pt) rectangle (2.1pt,2.1pt);}
+\setbeamertemplate{itemize subitem}{\tikz[baseline=-0.6ex]\fill[sink](-2.2pt,-0.5pt) rectangle (2.2pt,0.5pt);}
+\setbeamertemplate{enumerate item}{\color{sred}\bfseries\insertenumlabel}
+\renewcommand\deckplus{\tikz[baseline=-0.62ex]{\fill[sink](-0.47em,-0.47em) rectangle (0.47em,0.47em);\draw[white,line width=1.1pt](-0.25em,0)--(0.25em,0)(0,-0.25em)--(0,0.25em);}}
+\renewcommand\deckminus{\tikz[baseline=-0.62ex]{\fill[sred](-0.47em,-0.47em) rectangle (0.47em,0.47em);\draw[white,line width=1.1pt](-0.25em,0)--(0.25em,0);}}
+\tcbset{deck block/.style={enhanced, sharp corners, colback=slight, colframe=slight, coltext=sink, boxrule=0pt,
+  left=9pt, right=9pt, top=6pt, bottom=7pt, before skip=4pt, after skip=2pt,
+  borderline north={2pt}{0pt}{sink}}}
+
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[sred] ([xshift=-2.7cm,yshift=0.9cm]current page.east) circle (3.2cm);
+  \end{tikzpicture}%
+  {\tiny\bfseries\color{sred}\textls[150]{\MakeUppercase{\insertdate}}\par}\vskip12pt
+  \begin{minipage}{0.62\textwidth}
+    {\fontsize{36}{37}\selectfont\bfseries\textls[-35]{\inserttitle}\par}\vskip12pt
+    {\large\color{sgray}\insertsubtitle\par}
+  \end{minipage}\par\vskip28pt
+  {\footnotesize\bfseries\insertauthor\par}}
+
+\newcommand\deck@tocentry[2]{%
+  \leavevmode\parbox[t]{2.1em}{\bfseries\small\color{#1}0\inserttocsectionnumber}%
+  \parbox[t]{\dimexpr\linewidth-2.2em}{\raggedright\bfseries\Large\color{#2}\textls[-20]{\inserttocsection}}\par\vskip9pt}
+\setbeamertemplate{section in toc}{\ifdeck@divider\deck@tocentry{white}{white}\else\deck@tocentry{sred}{sink}\fi}
+\setbeamertemplate{section in toc shaded}{\deck@tocentry{white!55!sred}{white!55!sred}}
+\newcommand\deckdivider{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, inner sep=0pt, text=white, font=\bfseries\fontsize{160}{160}\selectfont] at ([xshift=0.75cm,yshift=1.35cm]current page.south west) {\textls[-40]{0\thesection}};
+  \end{tikzpicture}%
+  \hfill\begin{minipage}[c]{0.5\textwidth}
+    {\tiny\bfseries\color{white}\textls[200]{OUTLINE}\par}\vskip10pt
+    \tableofcontents[currentsection]
+  \end{minipage}}
+\makeatother

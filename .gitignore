@@ -8,3 +8,15 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# Slide-design build intermediates
+variants/.build/
+variants/*.aux
+variants/*.log
+variants/*.nav
+variants/*.snm
+variants/*.toc
+variants/*.out
+variants/sheet-*.tex
+variants/compare.tex
+__pycache__/

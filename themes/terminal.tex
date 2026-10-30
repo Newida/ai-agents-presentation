@@ -1,0 +1,89 @@
+% Design variant "terminal": dark editor window, monospace prompts, git-diff style pros/cons.
+\input{themes/common}
+\makeatletter
+\usepackage[scale=0.92]{tgheros}
+\renewcommand\ttdefault{txtt}
+\definecolor{tbg}{HTML}{0D1117}
+\definecolor{tpanel}{HTML}{161B22}
+\definecolor{tborder}{HTML}{30363D}
+\definecolor{tfg}{HTML}{E6EDF3}
+\definecolor{tmuted}{HTML}{8B949E}
+\definecolor{tgreen}{HTML}{3FB950}
+\definecolor{tblue}{HTML}{58A6FF}
+\definecolor{tyellow}{HTML}{E3B341}
+\definecolor{tdotr}{HTML}{FF5F57}
+\definecolor{tdoty}{HTML}{FEBC2E}
+\definecolor{tdotg}{HTML}{28C840}
+\definecolor{warn}{HTML}{FF7B72}
+\definecolor{good}{HTML}{56D364}
+\definecolor{chartmark}{HTML}{FF7B72}
+
+\arrayrulecolor{tmuted}
+
+\setbeamercolor{background canvas}{bg=tbg}
+\setbeamercolor{normal text}{fg=tfg,bg=tbg}
+\setbeamercolor{structure}{fg=tblue}
+\setbeamercolor{frametitle}{fg=tfg}
+\setbeamercolor{block title}{fg=tyellow}
+\setbeamercolor{block body}{fg=tfg}
+\setbeamercolor{itemize item}{fg=tgreen}
+\setbeamercolor{enumerate item}{fg=tblue}
+\setbeamerfont{frametitle}{family=\ttfamily,series=\bfseries,size=\large}
+\setbeamerfont{block title}{family=\ttfamily,series=\bfseries,size=\footnotesize}
+
+\newcommand\deckcursor{\tikz[baseline=-0.1em]\fill[tgreen] (0,0) rectangle (0.5em,0.9em);}
+\setbeamertemplate{headline}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.56cm);
+    \fill[tpanel] (0,0) rectangle (\paperwidth,0.56cm);
+    \draw[tborder,line width=0.5pt] (0,0.25pt) -- (\paperwidth,0.25pt);
+    \fill[tdotr] (0.45cm,0.28cm) circle (0.09cm);
+    \fill[tdoty] (0.78cm,0.28cm) circle (0.09cm);
+    \fill[tdotg] (1.11cm,0.28cm) circle (0.09cm);
+    \node[font=\ttfamily\tiny, text=tmuted] at (0.5\paperwidth,0.28cm) {\insertshorttitle};
+  \end{tikzpicture}}
+\setbeamertemplate{frametitle}{%
+  \vskip0.28cm
+  \deckifsection{{\ttfamily\tiny\color{tmuted}\#\ \decksection\par}\vskip3pt}{}%
+  {\usebeamerfont{frametitle}{\color{tgreen}\$}\ \usebeamercolor[fg]{frametitle}\insertframetitle\,\deckcursor\par}%
+  \vskip3pt}
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}[font=\ttfamily\bfseries\tiny]
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.46cm);
+    \fill[tpanel] (0,0) rectangle (\paperwidth,0.46cm);
+    \node[anchor=west, fill=tgreen, text=tbg, minimum height=0.46cm, inner xsep=7pt] (a) at (0,0.23cm) {\insertshortauthor};
+    \fill[tgreen] (a.north east) -- ([xshift=0.2cm]a.east) -- (a.south east) -- cycle;
+    \node[anchor=west, text=tmuted, font=\ttfamily\tiny] at ([xshift=0.4cm]a.east) {\deckifsection{\decksection}{\insertshorttitle}};
+    \node[anchor=east, fill=tblue, text=tbg, minimum height=0.46cm, inner xsep=7pt] (b) at (\paperwidth,0.23cm) {\insertframenumber/\inserttotalframenumber};
+    \fill[tblue] (b.north west) -- ([xshift=-0.2cm]b.west) -- (b.south west) -- cycle;
+  \end{tikzpicture}}
+
+\setbeamertemplate{itemize item}{\ttfamily\bfseries\color{tgreen}>}
+\setbeamertemplate{itemize subitem}{\ttfamily\color{tmuted}-}
+\setbeamertemplate{enumerate item}{\ttfamily\bfseries\color{tblue}\insertenumlabel.}
+\renewcommand\deckplus{\ttfamily\bfseries\color{good}+}
+\renewcommand\deckminus{\ttfamily\bfseries\color{warn}-}
+
+\renewcommand\deckblockprefix{{\color{tmuted}\#\ }}
+\tcbset{deck block/.style={enhanced, colback=tpanel, colframe=tborder, coltext=tfg, boxrule=0.6pt, arc=3pt,
+  left=8pt, right=8pt, top=5pt, bottom=6pt, before skip=4pt, after skip=2pt}}
+
+\setbeamertemplate{title page}{%
+  {\ttfamily\footnotesize\color{tmuted}\#\ \insertdate\par}\vskip8pt
+  {\ttfamily\bfseries\fontsize{25}{30}\selectfont{\color{tgreen}\$}\ {\color{tfg}\inserttitle}\,\deckcursor\par}\vskip8pt
+  {\ttfamily\small\color{tmuted}\#\ \insertsubtitle\par}\vskip24pt
+  {\ttfamily\footnotesize{\color{tblue}author:}\ {\color{tfg}\insertauthor}\par}}
+
+\newcommand\deck@tocentry[3]{%
+  \leavevmode\hbox to 1.4em{\ttfamily\bfseries\color{tgreen}#1\hss}%
+  \parbox[t]{2.6em}{\ttfamily\bfseries\color{#2}[\inserttocsectionnumber]}%
+  \parbox[t]{\dimexpr\linewidth-4.2em}{\raggedright\ttfamily\bfseries\large\color{#3}\inserttocsection}\par\vskip10pt}
+\setbeamertemplate{section in toc}{\deck@tocentry{>}{tblue}{tfg}}
+\setbeamertemplate{section in toc shaded}{\deck@tocentry{}{tborder}{tmuted!75!tbg}}
+\newcommand\deckdivider{%
+  {\ttfamily\small{\color{tgreen}\$}\ {\color{tfg}cat outline}\par}\vskip16pt
+  \tableofcontents[currentsection]
+  \vskip8pt
+  {\ttfamily\small{\color{tgreen}\$}\ \deckcursor\par}}
+
+\makeatother

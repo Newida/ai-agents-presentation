@@ -1,0 +1,79 @@
+% Design variant "paper": warm paper, Palatino-style serif, clay accents (editorial).
+\input{themes/common}
+\makeatletter
+\usefonttheme{serif}
+\usepackage{mathpazo}
+\usepackage{tgpagella}
+\definecolor{paperbg}{HTML}{F4EFE6}
+\definecolor{paperink}{HTML}{23201C}
+\definecolor{papermuted}{HTML}{786F61}
+\definecolor{paperrule}{HTML}{CFC5B2}
+\definecolor{papercard}{HTML}{EAE2D2}
+\definecolor{clay}{HTML}{C15F3C}
+\definecolor{warn}{HTML}{B3261E}
+\definecolor{good}{HTML}{3E7A3A}
+\definecolor{chartmark}{HTML}{FF8A65}
+
+\arrayrulecolor{paperrule}
+
+\setbeamercolor{background canvas}{bg=paperbg}
+\setbeamercolor{normal text}{fg=paperink,bg=paperbg}
+\setbeamercolor{structure}{fg=clay}
+\setbeamercolor{frametitle}{fg=paperink}
+\setbeamercolor{block title}{fg=clay}
+\setbeamercolor{block body}{fg=paperink}
+\setbeamercolor{itemize item}{fg=clay}
+\setbeamercolor{enumerate item}{fg=clay}
+\setbeamerfont{frametitle}{size=\LARGE}
+\setbeamerfont{block title}{size=\small,shape=\scshape}
+
+\setbeamertemplate{frametitle}{%
+  \vskip0.4cm
+  \deckifsection{{\footnotesize\scshape\color{clay}\textls[40]{\@Roman\c@section\enspace{\upshape\textperiodcentered}\enspace\decksectionlc}\par}\vskip1pt}{}%
+  {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+  \vskip4pt\nointerlineskip\hbox{\color{paperrule}\rule{\textwidth}{0.5pt}}\vskip6pt}
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.62cm);
+    \ifnum\c@framenumber>\@ne
+      \node[anchor=west, font=\scriptsize\scshape, text=papermuted] at (1cm,0.32cm) {\insertshorttitle\enspace{\upshape\textperiodcentered}\enspace\insertshortauthor};
+      \node[anchor=east, font=\footnotesize\itshape, text=clay] at (\paperwidth-1cm,0.32cm) {\insertframenumber};
+    \fi
+  \end{tikzpicture}}
+
+\setbeamertemplate{itemize item}{\tikz[baseline=-0.6ex]\fill[clay](0,-2.3pt)--(2.3pt,0)--(0,2.3pt)--(-2.3pt,0)--cycle;}
+\setbeamertemplate{itemize subitem}{\color{papermuted}\textendash}
+\setbeamertemplate{enumerate item}{\color{clay}\itshape\insertenumlabel.}
+\renewcommand\deckplus{{\color{good}\bfseries+}}
+\renewcommand\deckminus{{\color{warn}\bfseries\textendash}}
+\tcbset{deck block/.style={enhanced, sharp corners, colback=papercard, colframe=papercard, coltext=paperink, boxrule=0pt,
+  left=10pt, right=10pt, top=6pt, bottom=7pt, before skip=4pt, after skip=2pt,
+  borderline west={2pt}{0pt}{clay}}}
+
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[clay] ([xshift=-2.8cm,yshift=1.9cm]current page.south east) circle (1.4cm);
+    \draw[paperink, line width=0.6pt] ([xshift=-2.0cm,yshift=2.5cm]current page.south east) circle (1.4cm);
+  \end{tikzpicture}%
+  {\footnotesize\scshape\color{clay}\textls[40]{\insertdate}\par}\vskip10pt
+  {\fontsize{34}{40}\selectfont\color{paperink}\inserttitle\par}\vskip8pt
+  {\Large\itshape\color{papermuted}\insertsubtitle\par}\vskip16pt
+  {\color{clay}\rule{2.5cm}{0.8pt}\par}\vskip10pt
+  {\small\scshape\color{paperink}\insertauthor\par}}
+
+\newcommand\deck@tocentry[2]{%
+  \leavevmode\parbox[t]{2em}{\itshape\color{#1}\@Roman{\inserttocsectionnumber}.}%
+  \parbox[t]{\dimexpr\linewidth-2.1em}{\raggedright\Large\color{#2}\inserttocsection}\par\vskip9pt}
+\setbeamertemplate{section in toc}{\deck@tocentry{clay}{paperink}}
+\setbeamertemplate{section in toc shaded}{\deck@tocentry{paperrule}{papermuted!75!paperbg}}
+\newcommand\deckdivider{%
+  \begin{minipage}[c]{0.3\textwidth}\raggedleft
+    {\fontsize{120}{120}\selectfont\itshape\color{clay}\@Roman\c@section}
+  \end{minipage}\hspace{0.04\textwidth}%
+  {\color{paperrule}\vrule width 0.6pt height 2.2cm depth 1.2cm}\hspace{0.04\textwidth}%
+  \begin{minipage}[c]{0.58\textwidth}
+    {\footnotesize\scshape\color{clay}\textls[60]{outline}\par}\vskip10pt
+    \tableofcontents[currentsection]
+  \end{minipage}}
+
+\makeatother

@@ -1,0 +1,93 @@
+% Design variant "aurora": light slides, violet -> pink -> orange gradient titles and dividers.
+\input{themes/common}
+\makeatletter
+\usepackage[scale=0.92]{tgheros}
+\newcommand\deckdisplay{\fontfamily{qag}\selectfont}
+\definecolor{aink}{HTML}{1C1832}
+\definecolor{amuted}{HTML}{6C6884}
+\definecolor{aline}{HTML}{E9E5F5}
+\definecolor{aviolet}{HTML}{6D28D9}
+\definecolor{apink}{HTML}{DB2777}
+\definecolor{aorange}{HTML}{F59E0B}
+\definecolor{warn}{HTML}{E11D48}
+\definecolor{good}{HTML}{059669}
+\definecolor{chartmark}{HTML}{FF4D8D}
+\pgfdeclarehorizontalshading{aurora}{100bp}{color(0bp)=(aviolet); color(55bp)=(apink); color(100bp)=(aorange)}
+
+\arrayrulecolor{amuted}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=aink,bg=white}
+\setbeamercolor{structure}{fg=aviolet}
+\setbeamercolor{block title}{fg=aviolet}
+\setbeamercolor{block body}{fg=aink}
+\setbeamercolor{itemize item}{fg=apink}
+\setbeamercolor{enumerate item}{fg=aviolet}
+\setbeamerfont{frametitle}{family=\deckdisplay,series=\bfseries,size=\Large}
+\setbeamerfont{kicker}{size=\tiny,series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries,size=\small}
+
+\newcommand\deck@gradientbg{%
+  \shade[shading=aurora, shading angle=-35] (0,0) rectangle (\paperwidth,\paperheight);
+  \fill[aink, fill opacity=0.35, path fading=deckglow] (0,0) circle (9cm);
+  \fill[white, fill opacity=0.18, path fading=deckglow] (0.85\paperwidth,0.95\paperheight) circle (8cm);
+  \fill[white, fill opacity=0.10] (0.80\paperwidth,0.30\paperheight) circle (1.7cm);
+  \fill[white, fill opacity=0.14] (0.92\paperwidth,0.62\paperheight) circle (0.7cm);
+  \fill[white, fill opacity=0.20] (0.70\paperwidth,0.82\paperheight) circle (0.32cm);}
+\setbeamertemplate{background}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \ifdeck@divider\deck@gradientbg\else\ifnum\c@framenumber=\@ne\deck@gradientbg\else
+      \fill[apink, fill opacity=0.10, path fading=deckglow] (\paperwidth,\paperheight) circle (8cm);
+      \fill[aviolet, fill opacity=0.08, path fading=deckglow] (0,0) circle (7cm);
+      \shade[shading=aurora] (0,\paperheight-2.6pt) rectangle (\paperwidth,\paperheight);
+    \fi\fi
+  \end{tikzpicture}}
+\setbeamertemplate{frametitle}{%
+  \vskip0.45cm
+  \deckifsection{{\usebeamerfont{kicker}\color{amuted}\textls[180]{\deckSECTION}\par}\vskip4pt}{}%
+  \deckgradtext[0.99\linewidth]{\usebeamerfont{frametitle}}{\insertframetitle}{shading=aurora}\par
+  \vskip4pt}
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,0.6cm);
+    \ifnum\c@framenumber>\@ne
+      \node[anchor=west, font=\tiny, text=amuted] at (1cm,0.32cm) {\insertshortauthor\hspace{0.5em}\textperiodcentered\hspace{0.5em}\insertshorttitle};
+      \node[anchor=east, font=\tiny\bfseries, text=aviolet] at (\paperwidth-1cm,0.32cm) {\insertframenumber\,/\,\inserttotalframenumber};
+      \fill[aline] (1cm,0.1cm) rectangle (\paperwidth-1cm,0.135cm);
+      \shade[shading=aurora] (1cm,0.1cm) rectangle ({1cm+\insertframenumber/\inserttotalframenumber*(\paperwidth-2cm)},0.135cm);
+    \fi
+  \end{tikzpicture}}
+
+\setbeamertemplate{itemize item}{\tikz[baseline=-0.6ex]\shade[shading=aurora](0,0) circle (2.3pt);}
+\setbeamertemplate{itemize subitem}{\tikz[baseline=-0.6ex]\fill[amuted](0,-0.5pt) rectangle (4pt,0.5pt);}
+\setbeamertemplate{enumerate item}{\tikz[baseline=0pt]{\shade[shading=aurora,rounded corners=2.5pt](-0.62em,-0.38em) rectangle (0.62em,0.86em);\node[anchor=base,inner sep=0pt,font=\scriptsize\bfseries,text=white] at (0,0) {\insertenumlabel};}}
+\renewcommand\deckplus{\tikz[baseline=-0.62ex]{\fill[good](0,0) circle (0.5em);\draw[white,line width=1.2pt](-0.26em,0)--(0.26em,0)(0,-0.26em)--(0,0.26em);}}
+\renewcommand\deckminus{\tikz[baseline=-0.62ex]{\fill[warn](0,0) circle (0.5em);\draw[white,line width=1.2pt](-0.26em,0)--(0.26em,0);}}
+\tcbset{deck block/.style={enhanced, colback=white, colframe=white, coltext=aink, boxrule=0pt, arc=7pt,
+  left=10pt, right=10pt, top=8pt, bottom=7pt, before skip=5pt, after skip=3pt,
+  drop fuzzy shadow={aviolet!40},
+  overlay={\begin{scope}\clip[rounded corners=7pt] (frame.south west) rectangle (frame.north east);
+    \shade[shading=aurora] ([yshift=-2.6pt]frame.north west) rectangle (frame.north east);\end{scope}}}}
+
+\setbeamertemplate{title page}{%
+  {\usebeamerfont{kicker}\color{white}\textls[220]{\MakeUppercase{\insertdate}}\par}\vskip12pt
+  {\deckdisplay\bfseries\fontsize{38}{42}\selectfont\color{white}\inserttitle\par}\vskip12pt
+  {\large\color{white}\insertsubtitle\par}\vskip26pt
+  {\small\bfseries\color{white}\insertauthor\par}}
+
+\newcommand\deck@tocentry[2]{%
+  \leavevmode\parbox[t]{2.4em}{\bfseries\small\color{#1}0\inserttocsectionnumber}%
+  \parbox[t]{\dimexpr\linewidth-2.5em}{\raggedright\deckdisplay\bfseries\Large\color{#2}\inserttocsection}\par\vskip9pt}
+\setbeamertemplate{section in toc}{\ifdeck@divider\deck@tocentry{white}{white}\else\deck@tocentry{apink}{aink}\fi}
+\setbeamertemplate{section in toc shaded}{\deck@tocentry{white!55!apink}{white!55!apink}}
+\newcommand\deckdivider{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east, inner sep=0pt, text=white, text opacity=0.2, font=\deckdisplay\bfseries\fontsize{170}{170}\selectfont] at ([xshift=-0.5cm,yshift=1.4cm]current page.south east) {0\thesection};
+  \end{tikzpicture}%
+  \begin{minipage}{0.72\textwidth}
+    {\usebeamerfont{kicker}\color{white}\textls[220]{OUTLINE}\par}\vskip12pt
+    \tableofcontents[currentsection]
+  \end{minipage}}
+
+\makeatother

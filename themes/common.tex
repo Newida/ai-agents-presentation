@@ -1,0 +1,61 @@
+% Shared code for the design variants in themes/ (every variant loads this first).
+% Build:  variants/build.sh [name ...]  ->  variants/<name>.pdf
+\makeatletter
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{colortbl}
+\setlength{\tabcolsep}{4pt}
+\usepackage{etoolbox}
+\usepackage[skins]{tcolorbox}
+\usetikzlibrary{fadings,shadings,calc}
+\tikzfading[name=deckglow, inner color=transparent!0, outer color=transparent!100]
+
+% Current section title without its hyperlink (safe to change case)
+\def\deck@nolink#1#2{#2}
+\newcommand\decksection{\begingroup\let\hyperlink\deck@nolink\insertsectionhead\endgroup}
+\newcommand\deckSECTION{\begingroup\let\hyperlink\deck@nolink\MakeUppercase{\insertsectionhead}\endgroup}
+\newcommand\decksectionlc{\begingroup\let\hyperlink\deck@nolink\MakeLowercase{\insertsectionhead}\endgroup}
+\newcommand\deckifsection[2]{\ifnum\c@section>\z@ #1\else #2\fi}
+
+% Gradient-filled text in a fixed-width box (also avoids title hyphenation).
+% \deckgradtext[width]{font}{text}{tikz shading options}
+\newcount\deck@fades
+\newdimen\deck@gw
+\newcommand\deckgradtext[4][\linewidth]{%
+  \global\advance\deck@fades\@ne
+  \edef\deck@fade{deckfade\the\deck@fades}%
+  \deck@gw=#1\relax
+  \begin{tikzfadingfrompicture}[name=\deck@fade]
+    \node[text=transparent!0, inner sep=0pt, font=#2, text width=\deck@gw, align=left] {#3};
+  \end{tikzfadingfrompicture}%
+  \begin{tikzpicture}[baseline=(deck@t.base)]
+    \node[inner sep=0pt, font=#2, text width=\deck@gw, align=left, text opacity=0] (deck@t) {#3};
+    \shade[path fading=\deck@fade, fit fading=false, #4]
+      (deck@t.south west) rectangle (deck@t.north east);
+  \end{tikzpicture}}
+
+% Pros and cons use theme-specific symbols in the generated build copies.
+\providecommand\deckplus{+}
+\providecommand\deckminus{--}
+
+% Section start: a divider frame (same content as the "Outline" frame it replaces)
+\newif\ifdeck@divider
+% Beamer pulls a TOC upwards by half an em; leave room under custom title rules.
+\let\deck@toc\tableofcontents
+\renewcommand\tableofcontents[1][]{%
+  \ifdeck@divider\else\vspace*{12pt}\fi
+  \deck@toc[#1]}
+\AtBeginSection[]{%
+  \global\deck@dividertrue
+  \begin{frame}[plain]\deckdivider\end{frame}%
+  \global\deck@dividerfalse}
+
+% Blocks are tcolorboxes; themes set the "deck block" style
+\providecommand\deckblockprefix{}
+\tcbset{deck block/.style={}}
+\setbeamertemplate{block begin}{\par\begin{tcolorbox}[deck block]%
+  {\usebeamerfont{block title}\deckblockprefix\usebeamercolor[fg]{block title}\insertblocktitle\par}\vskip3pt
+  \usebeamerfont{block body}\usebeamercolor[fg]{block body}}
+\setbeamertemplate{block end}{\end{tcolorbox}}
+\makeatother
