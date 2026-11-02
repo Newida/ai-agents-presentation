@@ -347,6 +347,53 @@
 % Notes: 300 k EUR is an illustrative 8-GPU-node price, not a quote; excludes power and staff.
 % 2 nodes = roughly one copy of a ~1T-parameter model; serving hundreds of users needs more.
 
+% Field report from a colleague's group (email 2026-11-02). Gaps marked \gap{?} are
+% still to ask him: hardware, users, quality, speed, staff time, utilization, attribution.
+% Per month = 45 days / 1.5. Sonnet equivalents are his estimate; Z.ai price ignores caching.
+\providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
+\begin{frame}{Field Report: Self-Hosting in Practice}
+  \framesubtitle{\gap{group?} on \gap{N $\times$ GPU, cost?} for \gap{how many?} users}
+  \scriptsize
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \textbf{Main model: GLM-5.3-Flash, 45 days}
+      \smallskip
+
+      \renewcommand{\arraystretch}{1.05}
+      \begin{tabular}{@{}lrr@{}}
+                          & 45 days       & per month \\ \hline
+        input tokens      & 28.3\,B       & $\sim$19\,B \\
+        \quad of it cached & 25.4\,B (90\,\%) & \\
+        output tokens     & 585\,M        & $\sim$390\,M \\ \hline
+        at Z.ai prices    & \$4.5\,k      & $\sim$\$3\,k \\
+        in Sonnet prices  & \$14--25\,k   & $\sim$\$9--17\,k \\
+        energy (full load) & 500--1000\,\euro{} & $\sim$330--670\,\euro{} \\
+        hardware          & \gap{?}       & \gap{?} \\
+        staff time        & \gap{?}       & \gap{h/week?} \\
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{itemize}
+        \item<2-> \textbf{Also:} Qwen 3.8 27B, DeepSeek V4.1 Flash, GLM 5.3, \dots{} rotated weekly:
+          $>$\$15\,k at API prices ($\approx$\$45--75\,k in Sonnet prices)
+        \item<3-> \textbf{What made it work:} aggressive caching (incl.\ 256\,GB CPU cache),
+          a proxy that puts interactive coding ahead of bulk jobs
+        \item<4-> \textbf{The catch:} he had to patch vLLM himself, the difference between
+          ``completely unusable'' and ``fairly usable''
+        \item<5-> \textbf{Quality:} \gap{vs.\ Claude/GPT on agentic coding? agent tool?}
+        \item<5-> \textbf{Speed:} \gap{tokens/s per user, at peak?}
+        \item<5-> \textbf{Utilization:} \gap{GPUs busy on average? idle at night?}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \smallskip
+  \uncover<6->{%
+  \begin{block}{Takeaway}
+    Running the model is cheap (energy $\ll$ API bill). The real costs are the hardware
+    \gap{?} and the expert who keeps it running.
+  \end{block}}
+\end{frame}
+
 % Takeaways (one per click), grouped by the three questions in the subtitle.
 % Where each one comes from:
 %   - doing vs. decisions: OpenAI chart + Dettmers ("decisions, and taste will be
