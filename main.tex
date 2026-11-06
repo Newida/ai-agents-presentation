@@ -1,6 +1,4 @@
 % TODO: change style and tone of the whole presentation
-% TODO: the black screenshots/images do not fit the slide style; make them look better
-%       (e.g. frame, crop, light background or consistent treatment).
 % TODO: replace the Tim Dettmers part ("Dettmers' Interpretation"): he is not that well known,
 %       so the audience may not see why his interpretation should be trusted.
 % TODO: maybe show sources differently (currently "Source: ..." text lines under figures).
@@ -20,6 +18,11 @@
 \colorlet{warn}{red}
 \colorlet{good}{green!50!black}
 \colorlet{chartmark}{red}
+\colorlet{chartframe}{black!35}
+% Dark chart screenshots sit on a framed plate with a soft offset shadow
+\usetikzlibrary{shadows}
+\tikzset{deck plate/.style={inner sep=0.6pt, draw=chartframe, line width=0.6pt, fill=black,
+  general shadow={fill=black!14, shadow xshift=2.5pt, shadow yshift=-2.5pt}}}
 % Design: the paper theme is the default; variants/build.sh <name> defines \decktheme first
 \providecommand\decktheme{paper}
 \ifx\decktheme\empty\else\input{themes/\decktheme}\fi
@@ -38,7 +41,7 @@
 
 \begin{frame}[shrink=0]{FOMO Headline: OpenAI Agent Usage}
   \centering
-  \includegraphics[height=0.78\textheight]{assets/openai-median-usage.pdf}\\[2pt]
+  \begin{tikzpicture}\node[deck plate]{\includegraphics[height=0.76\textheight]{assets/openai-median-usage.pdf}};\end{tikzpicture}\\[4pt]
   {\tiny Median researcher, daily \$ spent on internal coding agents.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
@@ -75,11 +78,11 @@
 % --------------------------------------------------------------------------
   \centering
   \begin{tikzpicture}
-    \node[anchor=south west, inner sep=0] (chart)
-      {\includegraphics[height=0.78\textheight]{assets/openai-usage-categories.pdf}};
+    \node[anchor=south west, deck plate] (chart)
+      {\includegraphics[height=0.76\textheight]{assets/openai-usage-categories.pdf}};
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
     \only<2>{
-      \node[inner sep=0, fill=black] (zoom) at ([yshift=-4pt]chart.center)
+      \node[deck plate] (zoom) at ([yshift=-4pt]chart.center)
         {\includegraphics[width=0.98\textwidth, trim=22 2 58 238, clip]{assets/openai-usage-categories.pdf}};
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
       \coordinate (cl) at ($(zoom.south west)!0.491!(zoom.north west)$);
