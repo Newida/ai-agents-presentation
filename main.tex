@@ -38,7 +38,13 @@
 
 \begin{frame}[shrink=0]{FOMO Headline: OpenAI Agent Usage}
   \centering
-  \includegraphics[height=0.9\textheight, trim=14 6 20 72, clip]{assets/openai-median-usage.pdf}\\[2pt]
+  \begin{tikzpicture}
+    \node[inner sep=0] (chart)
+      {\includegraphics[height=0.9\textheight, trim=14 6 20 72, clip]{assets/openai-median-usage.pdf}};
+    % OpenAI mark, cropped out of the chart's title row
+    \node[anchor=north east, inner sep=0] at ([xshift=-4pt]chart.north east)
+      {\includegraphics[height=1.1em, trim=444 365 34 22, clip]{assets/openai-median-usage.pdf}};
+  \end{tikzpicture}\\[2pt]
   {\tiny Median researcher, daily \$ spent on internal coding agents.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
@@ -77,14 +83,16 @@
   \begin{tikzpicture}
     \node[anchor=south west, inner sep=0] (chart)
       {\includegraphics[height=0.9\textheight, trim=20 4 70 58, clip]{assets/openai-usage-categories.pdf}};
+    \node[anchor=north east, inner sep=0] (logo) at ([xshift=-4pt]chart.north east)
+      {\includegraphics[height=1.1em, trim=918 632 32 22, clip]{assets/openai-usage-categories.pdf}};
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
     \only<2>{
+      \fill[paperbg] (chart.south west) rectangle (chart.north east);
       \node[inner sep=0, fill=paperbg] (zoom) at ([yshift=-4pt]chart.center)
         {\includegraphics[width=0.98\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
-      \fill[paperbg] (chart.south west) rectangle (chart.south east |- zoom.south);
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
-      \coordinate (cl) at ($(zoom.south west)!0.491!(zoom.north west)$);
-      \coordinate (cr) at ($(zoom.south east)!0.491!(zoom.north east)$);
+      \coordinate (cl) at ($(zoom.south west)!0.494!(zoom.north west)$);
+      \coordinate (cr) at ($(zoom.south east)!0.494!(zoom.north east)$);
       \draw[chartmark, line width=1.5pt, dashed] (cl) -- (cr);
       \node[chartmark, font=\bfseries\small, anchor=south east] at ($(cl)!0.98!(cr)$) {doing $\uparrow$};
       \node[chartmark, font=\bfseries\small, anchor=north east] at ($(cl)!0.98!(cr)$) {thinking $\downarrow$};
