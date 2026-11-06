@@ -144,9 +144,13 @@
       & \leavevmode\uncover<8->{Agent use is a \emph{skill}: not everything can or should
         be automated (degree of automation).} \\
   \end{tabular}
-  \vfill
-  {\tiny Sources: timdettmers.com/2026/01/13/use-agents-or-be-left-behind;
-  OpenAI, ``Research acceleration'' (self-reported).}
+  % Sources at the bottom, centered; Dettmers' appears with his column (click 5)
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=south, font=\tiny, inner sep=0] at ([yshift=1.2cm]current page.south)
+      {Source: OpenAI, ``Research acceleration'' (self-reported).};
+    \uncover<5->{\node[anchor=south, font=\tiny, inner sep=0] at ([yshift=0.9cm]current page.south)
+      {Source: Tim Dettmers, timdettmers.com/2026/01/13/use-agents-or-be-left-behind};}
+  \end{tikzpicture}
 \end{frame}
 
 % Field report (speaker notes). Sources: github.com/Newida/AutomatingExercises
