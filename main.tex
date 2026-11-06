@@ -15,41 +15,35 @@
 \author{Lukas Theissinger}
 \date{\today}
 
-\AtBeginSection[]{
-  \begin{frame}{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
-
 \usetikzlibrary{calc}
 % Semantic colours (the design variants in themes/ redefine them)
 \colorlet{warn}{red}
 \colorlet{good}{green!50!black}
 \colorlet{chartmark}{red}
-% Design variant: variants/build.sh <name> loads themes/<name>.tex (default: none)
-\providecommand\decktheme{}
+% Design: the paper theme is the default; variants/build.sh <name> defines \decktheme first
+\providecommand\decktheme{paper}
 \ifx\decktheme\empty\else\input{themes/\decktheme}\fi
 \begin{document}
 
-\begin{frame}
+\begin{frame}[shrink=0]
   \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
+\begin{frame}[shrink=0]{Outline}
   \tableofcontents
 \end{frame}
 
 % 1. ~6 min
 \section{OpenAI and Agent Usage}
 
-\begin{frame}{FOMO Headline: OpenAI Agent Usage}
+\begin{frame}[shrink=0]{FOMO Headline: OpenAI Agent Usage}
   \centering
   \includegraphics[height=0.78\textheight]{assets/openai-median-usage.pdf}\\[2pt]
   {\tiny Median researcher, daily \$ spent on internal coding agents.
   Source: OpenAI, ``Research acceleration'' (self-reported).}
 \end{frame}
 
-\begin{frame}{What do agents do at OpenAI?}
+\begin{frame}[shrink=0]{What do agents do at OpenAI?}
 % --- Reading of the chart (speaker notes, not shown) -----------------------
 % What it shows: increase in OUTPUT TOKENS per researcher per day since
 % the start of 2026, split into 18 research activities (6 groups).
@@ -120,7 +114,7 @@
 %     that you will fail often before you succeed."
 
 % TODO: replace this slide (Dettmers not well known, see TODO at top).
-\begin{frame}{Dettmers' Interpretation}
+\begin{frame}[shrink=0]{Dettmers' Interpretation}
   {\small Tim Dettmers' hypotheses, read against the OpenAI usage data}
   \vspace{6pt}
   \renewcommand{\arraystretch}{1.35}
@@ -171,7 +165,7 @@
 %   - Dettmers' rule for this tool: sheets per semester x time saved per sheet
 %     vs. time to build (25 commits, Oct 26-29).
 
-\begin{frame}{Field Report: Automating Exercises}
+\begin{frame}[shrink=0]{Field Report: Automating Exercises}
   % One step per click: problem, what is automated, what is left, link.
   \begin{enumerate}
     \setlength{\itemsep}{1em}
@@ -198,7 +192,7 @@
 % 2. ~6 min
 \section{Owning Intelligence and Infrastructure at Lamarr}
 
-\begin{frame}{Automating at Bigger Scale}
+\begin{frame}[shrink=0]{Automating at Bigger Scale}
   \begin{itemize}
     \item<1-> \textbf{So far:} each of us automates our own tasks.
     \item<2-> \textbf{Share it:} one person builds it, everyone reuses and adapts it to their needs.
@@ -220,7 +214,7 @@
 % per person vs. once for the whole institute. Numbers are rough illustrations.
 % Also: only the institute can build it -- it needs the official form and admin-system access.
 
-\begin{frame}{What Agents Cost}
+\begin{frame}[shrink=0]{What Agents Cost}
   \begin{itemize}
     \item<1-> \textbf{Me:} Claude \emph{and} Codex, 20\,\euro{} plan each: \textbf{40\,\euro{} per month}.
       One plan alone is not enough.
@@ -241,25 +235,25 @@
 % Notes: "If you still cannot see it, you are super delusional."
 % Two decisions follow: 1) subscription vs. API (individual), 2) self-hosting (institute only).
 
-\begin{frame}{Decision 1: Subscription or API?}
+\begin{frame}[shrink=0]{Decision 1: Subscription or API?}
   \small
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \uncover<1->{\textbf{Subscription} (20--200\,\euro{}/month)
       \begin{itemize}
-        \item[+] flat price, no surprise bills
-        \item[+] very cheap for heavy interactive use
-        \item[--] usage caps (5-hour and weekly)
-        \item[--] one person, one login; not for pipelines
+        \item[\deckplus] flat price, no surprise bills
+        \item[\deckplus] very cheap for heavy interactive use
+        \item[\deckminus] usage caps (5-hour and weekly)
+        \item[\deckminus] one person, one login; not for pipelines
       \end{itemize}}
     \end{column}
     \begin{column}{0.48\textwidth}
       \uncover<2->{\textbf{API} (pay per token)
       \begin{itemize}
-        \item[+] no caps, run many agents in parallel
-        \item[+] scripts, batch jobs, shared tools
-        \item[--] heavy daily use gets expensive fast
-        \item[--] needs a budget and someone watching it
+        \item[\deckplus] no caps, run many agents in parallel
+        \item[\deckplus] scripts, batch jobs, shared tools
+        \item[\deckminus] heavy daily use gets expensive fast
+        \item[\deckminus] needs a budget and someone watching it
       \end{itemize}}
     \end{column}
   \end{columns}
@@ -283,7 +277,7 @@
 % Notes: API figures are estimates from my own usage log at list prices, not invoices.
 % The 2.25 $ is the QHack 27-task run with gpt-6.1-sol via API.
 
-\begin{frame}{Decision 2: Self-Hosting Open Models}
+\begin{frame}[shrink=0]{Decision 2: Self-Hosting Open Models}
   \small
   \begin{itemize}
     \item<1-> \textbf{Not for individuals}, but realistic for Lamarr: the institute already runs large GPU clusters.
@@ -310,28 +304,28 @@
 % on the cluster has not been run on these tasks. "Much closer to the frontier" = public leaderboards
 % (gap of months, not years), not our own measurement.
 
-\begin{frame}{Self-Hosting for the Institute: Pros and Cons}
+\begin{frame}[shrink=0]{Self-Hosting for the Institute: Pros and Cons}
   \footnotesize
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \textbf{Quality and performance}
       \begin{itemize}
-        \item<1->[+] data never leaves Lamarr (privacy, unpublished work, GDPR)
-        \item<1->[+] no vendor caps or outages, models don't change under you
-        \item<1->[+] fine-tune on our own data, research on the models themselves
-        \item<2->[--] even the best open models trail the closed frontier (by months), most on hard agentic tasks
-        \item<2->[--] slower when many people use it at once
+        \item<1->[\deckplus] data never leaves Lamarr (privacy, unpublished work, GDPR)
+        \item<1->[\deckplus] no vendor caps or outages, models don't change under you
+        \item<1->[\deckplus] fine-tune on our own data, research on the models themselves
+        \item<2->[\deckminus] even the best open models trail the closed frontier (by months), most on hard agentic tasks
+        \item<2->[\deckminus] slower when many people use it at once
       \end{itemize}
     \end{column}
     \begin{column}{0.48\textwidth}
       \textbf{Costs}
       \begin{itemize}
-        \item<3->[+] no per-token bill: more use costs nothing extra
-        \item<3->[+] shared by all members, predictable budget
-        \item<3->[+] Lamarr already has the GPUs and the people who run them
-        \item<4->[--] a frontier-class model occupies whole nodes around the clock, taken from research jobs
-        \item<4->[--] power, cooling and staff to run it
-        \item<4->[--] hardware ages in 3--5 years; idle at night
+        \item<3->[\deckplus] no per-token bill: more use costs nothing extra
+        \item<3->[\deckplus] shared by all members, predictable budget
+        \item<3->[\deckplus] Lamarr already has the GPUs and the people who run them
+        \item<4->[\deckminus] a frontier-class model occupies whole nodes around the clock, taken from research jobs
+        \item<4->[\deckminus] power, cooling and staff to run it
+        \item<4->[\deckminus] hardware ages in 3--5 years; idle at night
       \end{itemize}
     \end{column}
   \end{columns}
@@ -351,7 +345,7 @@
 % still to ask him: hardware, users, quality, speed, staff time, utilization, attribution.
 % Per month = 45 days / 1.5. Sonnet equivalents are his estimate; Z.ai price ignores caching.
 \providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
-\begin{frame}{Field Report: Self-Hosting in Practice}
+\begin{frame}[shrink=0]{Field Report: Self-Hosting in Practice}
   \framesubtitle{\gap{group?} on \gap{N $\times$ GPU, cost?} for \gap{how many?} users}
   \scriptsize
   \begin{columns}[T]
@@ -405,7 +399,7 @@
 %     behind the closed frontier, not yet tested on our tasks.
 %   - personal recommendation: build your own AI setup with AI to practise
 %     using agents and tailor the tools to your own work.
-\begin{frame}{Takeaways}
+\begin{frame}[shrink=0]{Takeaways}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}
       \uncover<1->{\structure{\textbf{For the individual}}}

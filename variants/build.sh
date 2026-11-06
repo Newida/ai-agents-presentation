@@ -26,9 +26,6 @@ import sys
 import re
 name = sys.argv[1]
 s = Path('main.tex').read_text()
-s = s.replace(r'\begin{frame}', r'\begin{frame}[shrink=0]')
-s = re.sub(r'(\\item(?:<[^>]*>)?)\[\+\]', r'\1[\\deckplus]', s)
-s = re.sub(r'(\\item(?:<[^>]*>)?)\[--\]', r'\1[\\deckminus]', s)
 Path(f'variants/.build/{name}.tex').write_text(r'\def\decktheme{' + name + '}\n' + s)
 PY
   for pass in 1 2; do
