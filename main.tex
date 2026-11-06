@@ -79,8 +79,9 @@
       {\includegraphics[height=0.78\textheight]{assets/openai-usage-categories.pdf}};
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
     \only<2>{
-      \node[inner sep=0, fill=black] (zoom) at ([yshift=-4pt]chart.center)
-        {\includegraphics[width=0.98\textwidth, trim=22 2 58 238, clip]{assets/openai-usage-categories.pdf}};
+      \node[inner sep=0, fill=paperbg] (zoom) at ([yshift=-4pt]chart.center)
+        {\includegraphics[width=0.98\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
+      \fill[paperbg] (chart.south west) rectangle (chart.south east |- zoom.south);
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
       \coordinate (cl) at ($(zoom.south west)!0.491!(zoom.north west)$);
       \coordinate (cr) at ($(zoom.south east)!0.491!(zoom.north east)$);
