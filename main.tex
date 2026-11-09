@@ -34,7 +34,7 @@
   \centering
   \begin{tikzpicture}
     \node[inner sep=0] (chart)
-      {\includegraphics[height=0.9\textheight, trim=14 6 20 72, clip]{assets/openai-median-usage.pdf}};
+      {\includegraphics[height=0.655\textheight, trim=14 6 20 72, clip]{assets/openai-median-usage.pdf}};
     % OpenAI mark, cropped out of the chart's title row
     \node[anchor=north east, inner sep=0] at ([xshift=-4pt]chart.north east)
       {\includegraphics[height=1.1em, trim=442 360 30 20, clip]{assets/openai-median-usage.pdf}};
@@ -76,14 +76,14 @@
   \centering
   \begin{tikzpicture}
     \node[anchor=south west, inner sep=0] (chart)
-      {\includegraphics[height=0.9\textheight, trim=20 4 70 58, clip]{assets/openai-usage-categories.pdf}};
+      {\includegraphics[height=0.655\textheight, trim=20 4 70 58, clip]{assets/openai-usage-categories.pdf}};
     \node[anchor=north east, inner sep=0] (logo) at ([xshift=-4pt]chart.north east)
       {\includegraphics[height=1.1em, trim=916 627 30 20, clip]{assets/openai-usage-categories.pdf}};
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
     \only<2>{
       \fill[paperbg] (chart.south west) rectangle (chart.north east);
       \node[inner sep=0, fill=paperbg] (zoom) at ([yshift=-4pt]chart.center)
-        {\includegraphics[width=0.98\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
+        {\includegraphics[width=0.71\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
       \coordinate (cl) at ($(zoom.south west)!0.494!(zoom.north west)$);
       \coordinate (cr) at ($(zoom.south east)!0.494!(zoom.north east)$);
@@ -174,7 +174,7 @@
 \begin{frame}[shrink=0]{Field Report: Automating Exercises}
   % One step per click: problem, what is automated, what is left, link.
   \begin{enumerate}
-    \setlength{\itemsep}{1em}
+    \setlength{\itemsep}{0.55em}
     \item<1-> \textbf{The problem.} PhD student, tutoring an exercise class every two weeks:
       \begin{itemize}\footnotesize
         \item 2\,h exercise class + 6\,h preparation (solving the tasks, making the slides)
@@ -205,15 +205,15 @@
     {\color{warn} We need a place our agents can look for shared Lamarr automatizations}
     \item<3-> \textbf{Institute level:} tasks that never pay off for one person start to pay off
   \end{itemize}
-  \medskip
+  \vspace{-3pt}
   \uncover<4->{%
   \begin{block}{Example: travel expense reports}
-    \small Collect receipts, fill in the university form, look up per-diem rules, fix what admin sends back: say \textbf{3 trips $\times$ 3\,h per person per year}. An agent that reads the receipts and files the form correctly needs \textbf{$\sim$200\,h} (rules, forms, access to the admin system)\par\smallskip
+    \footnotesize Collect receipts, fill in the university form, look up per-diem rules, fix what admin sends back: say \textbf{3 trips $\times$ 3\,h per person per year}. An agent that reads the receipts and files the form correctly needs \textbf{$\sim$200\,h} (rules, forms, access to the admin system)\par\smallskip
     \centering
     \begin{tabular}{lccc}
       & how often $\times$ time saved & time to build & \\ \hline
       \uncover<5->{one person} & \uncover<5->{$3 \times 3$\,h $= 9$\,h/year} & \uncover<5->{200\,h} & \uncover<5->{\textcolor{warn}{\textbf{never pays}}} \\
-      \uncover<6->{institute, 10\,000 people} & \uncover<6->{$10\,000 \times 9$\,h $= 90\,000$\,h/year} & \uncover<6->{200\,h} & \uncover<6->{\textcolor{good}{\textbf{pays $>$400$\times$}}} \\
+      \uncover<6->{Lamarr, $\sim$300 researchers} & \uncover<6->{$300 \times 9$\,h $= 2\,700$\,h/year} & \uncover<6->{200\,h} & \uncover<6->{\textcolor{good}{\textbf{pays $>$13$\times$}}} \\
     \end{tabular}
   \end{block}}
 \end{frame}
@@ -252,7 +252,7 @@
         \item[\deckplus] flat price, no surprise bills
         \item[\deckplus] very cheap for heavy interactive use
         \item[\deckminus] usage caps (5-hour and weekly)
-        \item[\deckminus] one person, one login; not for pipelines
+        \item[\deckminus] one person, one login; not ideal for pipelines
       \end{itemize}}
     \end{column}
     \begin{column}{0.48\textwidth}
@@ -265,7 +265,7 @@
       \end{itemize}}
     \end{column}
   \end{columns}
-  \medskip
+  \vspace{0pt}
   % TODO: cost comparison. The ~680$ (Claude) and ~145$ (Codex) are rough estimates from my
   %   usage logs at list prices (token prices not verified), not invoices. Replace with a
   %   measured subscription-vs-API comparison: same tasks run both ways (planned QHack run,
@@ -283,52 +283,97 @@
 % Notes: API figures are estimates from my own usage log at list prices, not invoices.
 % The 2.25 $ is the QHack 27-task run with gpt-6.1-sol via API.
 
-% Field report from a colleague's group (email 2026-11-02). Gaps marked \gap{?} are
-% still to ask him: hardware, users, quality, speed, staff time, utilization, attribution.
-% Per month = 45 days / 1.5. Sonnet equivalents are his estimate; Z.ai price ignores caching.
-\providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
-\begin{frame}[shrink=0]{Decision 2: Self-Hosting? A Field Report}
-  \framesubtitle{\gap{group?} on \gap{N $\times$ GPU, cost?} for \gap{how many?} users}
-  \scriptsize
-  \begin{columns}[T]
-    \begin{column}{0.52\textwidth}
-      \textbf{Main model: GLM-5.3-Flash, 45 days}
-      \smallskip
+% Headline only; the Computing article itself could not be opened (403), wording from search results.
+% Notes: Reported as about 2,000 engineers and coding work, not all staff. GLM 5.3 on about
+% 56 Nvidia B200s. The 90% is Revolut's own figure; the 30 cents per million tokens excludes
+% cloud spend, staffing and observability. Claude Code and Codex remain as exceptions.
+\begin{frame}[shrink=0]{Decision 2: Self-Hosting?}
+  \null\vfill
+  \begin{block}{In the news}
+    \centering\LARGE ``Revolut turns to self-hosted AI to cut coding costs tenfold over Claude''\par
+  \end{block}
+  \bigskip
+  {\centering\small\href{https://www.computing.co.uk/news/2026/ai/revolut-turns-to-self-hosted-ai-to-cut-coding-costs-tenfold-over-claude}{Computing (UK), 2026}\par}
+  \vfill
+\end{frame}
 
-      \renewcommand{\arraystretch}{1.05}
-      \begin{tabular}{@{}lrr@{}}
-                          & 45 days       & per month \\ \hline
-        input tokens      & 28.3\,B       & $\sim$19\,B \\
-        \quad of it cached & 25.4\,B (90\,\%) & \\
-        output tokens     & 585\,M        & $\sim$390\,M \\ \hline
-        at Z.ai prices    & \$4.5\,k      & $\sim$\$3\,k \\
-        in Sonnet prices  & \$14--25\,k   & $\sim$\$9--17\,k \\
-        energy (full load) & 500--1000\,\euro{} & $\sim$330--670\,\euro{} \\
-        hardware          & \gap{?}       & \gap{?} \\
-        staff time        & \gap{?}       & \gap{h/week?} \\
-      \end{tabular}
+\begingroup\setbeamerfont{frametitle}{size=\Large}% keeps the long title on one line
+\begin{frame}[shrink=0]{Decision 2: Self-Hosting? A Field Report: Pros and Cons}
+  \vspace{-4pt}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.23\textwidth}
+      {\footnotesize\color{black!60}Hardware}\par
+      \textbf{4 $\times$ H100}\par
+      {\footnotesize\color{black!60}repurposed}
     \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{itemize}
-        \item<2-> \textbf{Also:} Qwen 3.8 27B, DeepSeek V4.1 Flash, GLM 5.3, \dots{} rotated weekly:
-          $>$\$15\,k at API prices ($\approx$\$45--75\,k in Sonnet prices)
-        \item<3-> \textbf{What made it work:} aggressive caching (incl.\ 256\,GB CPU cache),
-          a proxy that puts interactive coding ahead of bulk jobs
-        \item<4-> \textbf{The catch:} he had to patch vLLM himself, the difference between
-          ``completely unusable'' and ``fairly usable''
-        \item<5-> \textbf{Quality:} \gap{vs.\ Claude/GPT on agentic coding? agent tool?}
-        \item<5-> \textbf{Speed:} \gap{tokens/s per user, at peak?}
-        \item<5-> \textbf{Utilization:} \gap{GPUs busy on average? idle at night?}
-      \end{itemize}
+    \begin{column}{0.23\textwidth}
+      {\footnotesize\color{black!60}Model}\par
+      \textbf{GLM 5.3 Flash}\par
+      {\footnotesize\color{black!60}mainly}
+    \end{column}
+    \begin{column}{0.23\textwidth}
+      {\footnotesize\color{black!60}Quality}\par
+      \textbf{Sonnet high}\par
+      {\footnotesize\color{black!60}how it feels}
+    \end{column}
+    \begin{column}{0.23\textwidth}
+      {\footnotesize\color{black!60}Speed}\par
+      \textbf{50--100 tokens/s}\par
+      {\footnotesize\color{black!60}per user}
     \end{column}
   \end{columns}
-  \smallskip
-  \uncover<6->{%
-  \begin{block}{Takeaway}
-    Running the model is cheap (energy $\ll$ API bill). The real costs are the hardware
-    \gap{?} and the expert who keeps it running
-  \end{block}}
+  \vspace{1pt}
+  \rule{\textwidth}{0.3pt}
+  \vspace{1pt}
+  \small
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \textbf{What I would use it for}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item Pipelines, e.g.\ \href{https://github.com/Newida/AutomatingExercises}{\textbf{AutoExercises}}, finding related work
+        \item High token, lower intelligence: Code implementation, Organizing experiments
+        \item \textbf{Private Data}
+        \item Running \textbf{Agent Swarms}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \uncover<2->{\textbf{What I would not use it for}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item High-intelligence, low-token work: Math proofs, idea finding
+        \item Remember: OpenAI usage diagram
+      \end{itemize}}
+    \end{column}
+  \end{columns}
+  \vfill
 \end{frame}
+
+% Field report from a colleague's group (email 2026-11-02). Gaps marked \gap{?} are
+% still to ask him: hardware cost, users, quality, speed, utilization, attribution.
+% Per month = measured 45 days (28.3B in, 25.4B cached, 585M out, $4.5k Z.ai, $14-25k Sonnet, 500-1000 EUR energy) / 1.5. Sonnet equivalents are his estimate; Z.ai price ignores caching.
+% $9-17k at 1.12 $/EUR. Staff: 2-3 h/week x 4.33 x 50 EUR, rate assumed. 150k EUR hardware is a guess until Shinas answers. Payback range = 150k / (Sonnet - energy+staff) at the extremes.
+% If asked: Sonnet is the flattering baseline. Against hosted GLM (Z.ai ~2.7k EUR/month) the saving is ~1.4-1.9k EUR/month, payback ~7-9 years, so that case rests on privacy and control.
+\providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
+\begin{frame}[shrink=0]{Decision 2: Self-Hosting? A Field Report: Costs}
+  \framesubtitle{\gap{group?} on 4 $\times$ H100 \gap{cost?} for \gap{how many?} users}
+  \vspace{4pt}
+  \begin{alertblock}{Rough, quickly made estimates}
+    Only to get a feeling for the headline. Energy and the Sonnet comparison are true self-hosting values; pros, cons and full costs are not thought through. Repurposing hardware also takes skill and neat tricks.
+  \end{alertblock}
+  \vfill
+  {\large
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr@{}}
+    \textbf{GLM-5.3-Flash (main model)} & \textbf{per month} \\ \hline
+    energy (full load) & $\sim$330--670\,\euro{} \\
+    staff (2--3\,h/week at 50\,\euro{}/h) & $\sim$430--650\,\euro{} \\ \hline
+    \textbf{energy + staff} & \textbf{$\sim$0.8--1.3\,k\euro{}} \\
+    \textbf{same usage at Sonnet prices (API)} & \textbf{$\sim$8--15\,k\euro{}} \\
+  \end{tabular*}\par}
+  \vspace{12pt}
+  \uncover<2->{\textbf{Payback:} 4 $\times$ H100 at $\sim$150\,k\euro{} pays for itself in $\sim$10--22 months}
+  \vfill
+\end{frame}
+\endgroup
 
 % Takeaways (one per click), grouped by the three questions in the subtitle.
 % Where each one comes from:
@@ -337,7 +382,7 @@
 %   - 6 h -> 2 h: my own estimate (Field Report), every two weeks.
 %   - costs: What Agents Cost, Decision 1 (API figures are rough, see TODO there).
 %   - 10 000 people: travel-expense example, illustrative numbers.
-%   - self-hosting: Decision 2 (Field Report); running is cheap, hardware and staff are the cost.
+%   - self-hosting: Decision 2 (Field Report); running is cheap, hardware is the main cost.
 %   - personal recommendation: build your own AI setup with AI to practise
 %     using agents and tailor the tools to your own work.
 \begin{frame}[shrink=0]{Takeaways}
@@ -358,7 +403,7 @@
       \uncover<5->{\structure{\textbf{For the institute}}}
       \begin{enumerate}
         \setlength{\itemsep}{0.6em}
-        \item<5-> \textbf{Automate workflows for every individual:} what never pays off for one person pays off for 10\,000
+        \item<5-> \textbf{Automate workflows for every individual:} what never pays off for one person pays off for 300
         \item<6-> \textbf{Provide your employees with agents}
         \item<7-> \textbf{Consider self-hosting}
       \end{enumerate}
@@ -374,7 +419,7 @@
   \begin{enumerate}
     \setlength{\itemsep}{0.9em}
     \item<1-> We know that we \textbf{need AI agents} and what to use them for
-    \item<2-> David shows \textbf{his own setup}: how it looks in daily work for him
+    \item<2-> David shows \textbf{his own setup}: how it looks in daily work for him, ML research specific
     \item<3-> The best setup is \textbf{personal and custom}, so build your own
   \end{enumerate}
 \end{frame}
