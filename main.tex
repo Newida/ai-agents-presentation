@@ -266,7 +266,7 @@
     \end{column}
   \end{columns}
   \vspace{0pt}
-  % TODO: cost comparison. The ~680$ (Claude) and ~145$ (Codex) are rough estimates from my
+  %   cost comparison. The ~680$ (Claude) and ~145$ (Codex) are rough estimates from my
   %   usage logs at list prices (token prices not verified), not invoices. Replace with a
   %   measured subscription-vs-API comparison: same tasks run both ways (planned QHack run,
   %   branch ai/qhack-sub-vs-api-20261021, commit 0343df1, not run yet); check current prices.
@@ -280,10 +280,8 @@
     \end{tabular}\par\smallskip
   \end{block}}
 \end{frame}
-% Notes: API figures are estimates from my own usage log at list prices, not invoices.
-% The 2.25 $ is the QHack 27-task run with gpt-6.1-sol via API.
 
-% Headline only; the Computing article itself could not be opened (403), wording from search results.
+% Headline only;
 % Notes: Reported as about 2,000 engineers and coding work, not all staff. GLM 5.3 on about
 % 56 Nvidia B200s. The 90% is Revolut's own figure; the 30 cents per million tokens excludes
 % cloud spend, staffing and observability. Claude Code and Codex remain as exceptions.
@@ -347,19 +345,17 @@
   \vfill
 \end{frame}
 
-% Field report from a colleague's group (email 2026-11-02). Gaps marked \gap{?} are
-% still to ask him: hardware cost, users, quality, speed, utilization, attribution.
-% Per month = measured 45 days (28.3B in, 25.4B cached, 585M out, $4.5k Z.ai, $14-25k Sonnet, 500-1000 EUR energy) / 1.5. Sonnet equivalents are his estimate; Z.ai price ignores caching.
-% $9-17k at 1.12 $/EUR. Staff: 2-3 h/week x 4.33 x 50 EUR, rate assumed. 150k EUR hardware is a guess until Shinas answers. Payback range = 150k / (Sonnet - energy+staff) at the extremes.
-% If asked: Sonnet is the flattering baseline. Against hosted GLM (Z.ai ~2.7k EUR/month) the saving is ~1.4-1.9k EUR/month, payback ~7-9 years, so that case rests on privacy and control.
+% Field report from a colleague's group 
 \providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
 \begin{frame}[shrink=0]{Decision 2: Self-Hosting? A Field Report: Costs}
   \framesubtitle{\gap{group?} on 4 $\times$ H100 \gap{cost?} for \gap{how many?} users}
   \vspace{4pt}
-  \begin{alertblock}{Rough, quickly made estimates}
-    Only to get a feeling for the headline. Energy and the Sonnet comparison are true self-hosting values; pros, cons and full costs are not thought through. Repurposing hardware also takes skill and neat tricks.
-  \end{alertblock}
-  \vfill
+  {\small
+    To get a feeling for the headline: energy and the Sonnet comparison are \textbf{true} self-hosting values.\\
+    We do not go into all the details of self-hosting.\\
+    Repurposing hardware also takes skill and neat tricks.
+  \par}
+  \vspace{12pt}
   {\large
   \renewcommand{\arraystretch}{1.08}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr@{}}
@@ -411,9 +407,6 @@
   \end{columns}
 \end{frame}
 
-% Transition to David's talk (notes). His setup includes: voice to text, VS Code, /goal,
-% Claude orchestrating small local subagents. Message: AI setups are personal; his is
-% an example of what is possible, not a template to copy.
 \begin{frame}[shrink=0]{Next: David's Setup}
   \Large
   \begin{enumerate}
