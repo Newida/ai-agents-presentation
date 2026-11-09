@@ -23,14 +23,10 @@
   \titlepage
 \end{frame}
 
-\begin{frame}[shrink=0]{Outline}
-  \tableofcontents
-\end{frame}
-
 % 1. ~6 min
 \section{OpenAI and Agent Usage}
 
-\begin{frame}[shrink=0]{FOMO Headline: OpenAI Agent Usage}
+\begin{frame}[shrink=0]{OpenAI: $\sim$\$600 per Researcher per Day}
   \centering
   \begin{tikzpicture}
     \node[inner sep=0] (chart)
@@ -79,15 +75,16 @@
       {\includegraphics[height=0.655\textheight, trim=20 4 70 58, clip]{assets/openai-usage-categories.pdf}};
     \node[anchor=north east, inner sep=0] (logo) at ([xshift=-4pt]chart.north east)
       {\includegraphics[height=1.1em, trim=916 627 30 20, clip]{assets/openai-usage-categories.pdf}};
+    \useasboundingbox (chart.south west) rectangle (chart.north east); % the zoom may exceed the chart without moving the layout
     % click 2: vector zoom on the bar chart and its x axis, rest stays visible
     \only<2>{
       \fill[paperbg] (chart.south west) rectangle (chart.north east);
       \node[inner sep=0, fill=paperbg] (zoom) at ([yshift=-4pt]chart.center)
-        {\includegraphics[width=0.71\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
+        {\includegraphics[width=0.92\textwidth, trim=29.3 2.7 77.3 317.3, clip]{assets/openai-usage-categories.pdf}};
       % cut between 6.3 Status updates (doing) and 2.1 Research planning (thinking)
-      \coordinate (cl) at ($(zoom.south west)!0.494!(zoom.north west)$);
-      \coordinate (cr) at ($(zoom.south east)!0.494!(zoom.north east)$);
-      \draw[chartmark, line width=1.5pt, dashed] (cl) -- (cr);
+      \coordinate (cl) at ($(zoom.south west)!0.498!(zoom.north west)$);
+      \coordinate (cr) at ($(zoom.south east)!0.498!(zoom.north east)$);
+      \draw[chartmark, line width=1pt, dashed] (cl) -- (cr);
       \node[chartmark, font=\bfseries\small, anchor=south east] at ($(cl)!0.98!(cr)$) {doing $\uparrow$};
       \node[chartmark, font=\bfseries\small, anchor=north east] at ($(cl)!0.98!(cr)$) {thinking $\downarrow$};
     }
@@ -190,7 +187,7 @@
         \item class stays 2\,h, preparation drops from 6\,h to 2\,h: \textbf{2\,h + 2\,h = 4\,h every two weeks}
       \end{itemize}
     \item<4-> \textbf{Ask your agent to try it:}
-      \href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}\
+      \href{https://github.com/Newida/AutomatingExercises}{\texttt{github.com/Newida/AutomatingExercises}}\\[2pt]
       {\color{warn}\textbf{Avoid:} Don't do anything BY HAND on this project. If you want to change it, ASK YOUR AGENT to change it}
   \end{enumerate}
 \end{frame}
@@ -202,18 +199,18 @@
   \begin{itemize}
     \item<1-> \textbf{So far:} each of us automates our own tasks
     \item<2-> \textbf{Share it:} one person builds it, everyone reuses and adapts it to their needs \\
-    {\color{warn} We need a place our agents can look for shared Lamarr automatizations}
+    {\color{warn} We need a place our agents can look for shared Lamarr automations}
     \item<3-> \textbf{Institute level:} tasks that never pay off for one person start to pay off
   \end{itemize}
   \vspace{-3pt}
   \uncover<4->{%
   \begin{block}{Example: travel expense reports}
-    \footnotesize Collect receipts, fill in the university form, look up per-diem rules, fix what admin sends back: say \textbf{3 trips $\times$ 3\,h per person per year}. An agent that reads the receipts and files the form correctly needs \textbf{$\sim$200\,h} (rules, forms, access to the admin system)\par\smallskip
+    \footnotesize Collect receipts, fill in the university form, look up per-diem rules, fix what admin sends back: say \textbf{3 trips $\times$ 3\,h per person per year}. An agent that reads the receipts and files the form correctly needs \textbf{$\sim$200\,h} (rules, forms, access to the admin system), plus upkeep as rules change\par\smallskip
     \centering
     \begin{tabular}{lccc}
       & how often $\times$ time saved & time to build & \\ \hline
-      \uncover<5->{one person} & \uncover<5->{$3 \times 3$\,h $= 9$\,h/year} & \uncover<5->{200\,h} & \uncover<5->{\textcolor{warn}{\textbf{never pays}}} \\
-      \uncover<6->{Lamarr, $\sim$300 researchers} & \uncover<6->{$300 \times 9$\,h $= 2\,700$\,h/year} & \uncover<6->{200\,h} & \uncover<6->{\textcolor{good}{\textbf{pays $>$13$\times$}}} \\
+      one person & $3 \times 3$\,h $= 9$\,h/year & 200\,h & {\textcolor{warn}{\textbf{never pays}}} \\
+      \uncover<5->{Lamarr, $\sim$300 researchers} & \uncover<5->{$300 \times 9$\,h $= 2\,700$\,h/year} & \uncover<5->{200\,h} & \uncover<5->{\textcolor{good}{\textbf{pays $>$13$\times$}}} \\
     \end{tabular}
   \end{block}}
 \end{frame}
@@ -311,8 +308,8 @@
     \end{column}
     \begin{column}{0.23\textwidth}
       {\footnotesize\color{black!60}Quality}\par
-      \textbf{Sonnet high}\par
-      {\footnotesize\color{black!60}how it feels}
+      \textbf{Claude Sonnet}\par
+      {\footnotesize\color{black!60}high effort, by feel}
     \end{column}
     \begin{column}{0.23\textwidth}
       {\footnotesize\color{black!60}Speed}\par
@@ -326,19 +323,19 @@
   \small
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.56\textwidth}
-      \textbf{What I would use it for}
+      \uncover<2->{\textbf{What I would use it for}
       \begin{itemize}\setlength{\itemsep}{1pt}
         \item Pipelines, e.g.\ \href{https://github.com/Newida/AutomatingExercises}{\textbf{AutoExercises}}, finding related work
-        \item High token, lower intelligence: Code implementation, Organizing experiments
-        \item \textbf{Private Data}
-        \item Running \textbf{Agent Swarms}
-      \end{itemize}
+        \item High token, lower intelligence: code implementation, organizing experiments
+        \item \textbf{Private data}
+        \item Running \textbf{agent swarms}
+      \end{itemize}}
     \end{column}
     \begin{column}{0.4\textwidth}
-      \uncover<2->{\textbf{What I would not use it for}
+      \uncover<3->{\textbf{What I would not use it for}
       \begin{itemize}\setlength{\itemsep}{1pt}
-        \item High-intelligence, low-token work: Math proofs, idea finding
-        \item Remember: OpenAI usage diagram
+        \item High-intelligence, low-token work: math proofs, idea finding
+        \item Few tokens (see the OpenAI chart), so the best model stays affordable
       \end{itemize}}
     \end{column}
   \end{columns}
@@ -346,12 +343,11 @@
 \end{frame}
 
 % Field report from a colleague's group 
-\providecommand{\gap}[1]{\textcolor{red}{\textbf{[#1]}}}
 \begin{frame}[shrink=0]{Decision 2: Self-Hosting? A Field Report: Costs}
-  \framesubtitle{\gap{group?} on 4 $\times$ H100 \gap{cost?} for \gap{how many?} users}
+  \framesubtitle{on 4 $\times$ H100}
   \vspace{4pt}
   {\small
-    To get a feeling for the headline: energy and the Sonnet comparison are \textbf{true} self-hosting values.\\
+    To put the headline in perspective: energy and the Sonnet comparison are real values, sent to me by a colleague I trust.\\
     We do not go into all the details of self-hosting.\\
     Repurposing hardware also takes skill and neat tricks.
   \par}
@@ -371,7 +367,7 @@
 \end{frame}
 \endgroup
 
-% Takeaways (one per click), grouped by the three questions in the subtitle.
+% Takeaways (one column per click).
 % Where each one comes from:
 %   - doing vs. decisions: OpenAI chart + Dettmers ("decisions, and taste will be
 %     needed -- even if 90% of the work happens through AI"); checking: Field Report.
@@ -387,21 +383,21 @@
       \uncover<1->{\structure{\textbf{For the individual}}}
       \begin{enumerate}
         \setlength{\itemsep}{0.6em}
-        \item<1-> \textbf{You need to use AI agents}
-        \item<2-> \textbf{Use AI agents to change your bottlenecks at work}
-        \item<3-> \textbf{Automate, to a degree, only what pays off:}\\[2pt]
+        \item \textbf{You need to use AI agents}
+        \item \textbf{Use AI agents to change your bottlenecks at work}
+        \item \textbf{Automate, to a degree, only what pays off:}\\[2pt]
           {\small$\text{how often} \times \text{time saved} > \text{time to build}$}
-        \item<4-> \textbf{Use AI to build your own AI setup}\\[2pt]
+        \item \textbf{Use AI to build your own AI setup}\\[2pt]
           {\small Learn by doing, tailor it to your workflow, and make your daily work easier}
       \end{enumerate}
     \end{column}
     \begin{column}{0.44\textwidth}
-      \uncover<5->{\structure{\textbf{For the institute}}}
+      \uncover<2->{\structure{\textbf{For the institute}}}
       \begin{enumerate}
         \setlength{\itemsep}{0.6em}
-        \item<5-> \textbf{Automate workflows for every individual:} what never pays off for one person pays off for 300
-        \item<6-> \textbf{Provide your employees with agents}
-        \item<7-> \textbf{Consider self-hosting}
+        \item<2-> \textbf{Automate workflows for every individual:} what never pays off for one person pays off for 300
+        \item<2-> \textbf{Provide your employees with agents}
+        \item<2-> \textbf{Consider self-hosting}
       \end{enumerate}
     \end{column}
   \end{columns}
@@ -411,9 +407,9 @@
   \Large
   \begin{enumerate}
     \setlength{\itemsep}{0.9em}
-    \item<1-> We know that we \textbf{need AI agents} and what to use them for
-    \item<2-> David shows \textbf{his own setup}: how it looks in daily work for him, ML research specific
-    \item<3-> The best setup is \textbf{personal and custom}, so build your own
+    \item We know that we \textbf{need AI agents} and what to use them for
+    \item David shows \textbf{his own setup}: how it looks in daily work for him, ML research specific
+    \item The best setup is \textbf{personal and custom}, so build your own
   \end{enumerate}
 \end{frame}
 
